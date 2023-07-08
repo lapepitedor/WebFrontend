@@ -1,0 +1,12 @@
+h3 {
+     letter-spacing:1px;
+     text-align: center;
+     margin: 20px;
+     padding-top: 30px;
+}
+
+form{
+    margin: 30px;
+    padding: 20px;
+}
+div{background-color: rgb(223, 228, 231);}

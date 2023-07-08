@@ -1,0 +1,135 @@
+<div>
+  <h3 class="fw-normal mb-3 pb-3">Create your account</h3>
+  <form>
+    <!-- Name input -->
+    <div class="mb-3 mt-3">
+      <label for="name" class="form-label">Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="Enter your name "
+        name="name"
+        #required
+      />
+    </div>
+    <!-- email input -->
+    <div class="mb-3 mt-3">
+      <label for="email" class="form-label">Email:</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="Enter your email"
+        name="email"
+        #required
+      />
+    </div>
+
+    <!-- Birthdate input -->
+    <div class="mb-3 mt-3">
+      <label for="birthdate" class="form-label">Birtdate:</label>
+      <input
+        type="date"
+        class="form-control"
+        id="birthdate"
+        placeholder="Enter your birthdate"
+        name="birthdate"
+        required
+        autofocus
+        [max]="dateToday | date : 'yyyy-MM-dd'"
+        (input)="dateChanged($event)"
+      />
+    </div>
+
+    <!-- City input -->
+    <div class="mb-3 mt-3">
+      <label for="city" class="form-label">City:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="city"
+        placeholder="Enter your City"
+        name="city"
+      />
+    </div>
+    <!-- Country input -->
+    <div class="mb-3 mt-3">
+      <label for="country" class="form-label">Country:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="country"
+        placeholder="Enter your Country"
+        name="country"
+      />
+    </div>
+
+    <!-- Role -->
+    <div class="mb-3 mt-3">
+      <label for="role" class="form-label">Role:</label>
+
+      <select class="form-select" class="form-control">
+        <option>Select a role</option>
+        <option>Admin</option>
+        <option>User</option>
+        <option>Agent</option>
+      </select>
+    </div>
+
+    <!-- Password input -->
+    <div class="mb-3 mt-3">
+      <label for="password" class="form-label">Passwort:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="password"
+        placeholder="Enter your password"
+        name="password"
+      />
+    </div>
+
+    <!-- Repeat Password input -->
+    <div class="mb-3 mt-3">
+      <label for="repeatPassword" class="form-label">Repeat Passwort:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="repeatPassword"
+        placeholder="Enter your password"
+        name="repeatPassword"
+      />
+    </div>
+
+    <!-- Checkbox -->
+    <div class="form-check d-flex justify-content-center mb-4">
+      <input
+        class="form-check-input me-2"
+        type="checkbox"
+        value=""
+        id="registerCheck"
+        checked
+        aria-describedby="registerCheckHelpText"
+        required
+      />
+      <label class="form-check-label" for="registerCheck">
+        I have read and agree to the terms
+      </label>
+      <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback">Check this checkbox to continue.</div>
+    </div>
+
+    <!-- Submit button -->
+    <button
+      type="submit"
+      class="btn btn-primary btn-block mb-3"
+      (click)="onCreate()"
+    >
+      Sign Up
+    </button>
+
+    <button type="button" class="btn btn-info btn-block mb-3 ms-2">
+      Clear All
+    </button>
+  </form>
+</div>

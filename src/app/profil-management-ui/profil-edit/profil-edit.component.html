@@ -1,0 +1,94 @@
+<form class="was-validated" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Name input -->
+  <div class="form-group mb-3 mt-3">
+    <label for="name" class="form-label">Name:</label>
+    <input
+      type="text" 
+      class="form-control"
+      id="name"
+      placeholder="Enter your name "
+      name="name"
+      required
+    />
+    <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
+  </div>
+  <!-- email input -->
+  <div class="mb-3 mt-3 form-group">
+    <label for="email" class="form-label">Email:</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      placeholder="Enter your email"
+      name="email"
+      required
+    />
+    <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
+  </div>
+
+  <!-- Birthdate input -->
+  <div class="mb-3 mt-3 form-group">
+    <label for="birthdate" class="form-label">Birtdate:</label>
+    <input
+      type="date"
+      class="form-control"
+      id="birthdate"
+      placeholder="Enter your birthdate"
+      name="birthdate"
+      required
+      autofocus
+    />
+    <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
+  </div>
+
+  <!-- City input -->
+  <div class="mb-3 mt-3 form-group">
+    <label for="city" class="form-label">City:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="city"
+      placeholder="Enter your City"
+      name="city"
+      required
+    />
+    <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
+  </div>
+  <!-- Country input -->
+  <div class="mb-3 mt-3 form-group">
+    <label for="country" class="form-label">Country:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="country"
+      placeholder="Enter your Country"
+      name="country"
+      required
+    />
+    <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
+  </div>
+
+  <!-- Role -->
+  <div class="mb-3 mt-3 form-group">
+    <label for="role" class="form-label">Role:</label>
+
+    <select class="form-select" class="form-control">
+      <option>Select a role</option>
+      <option value="Admin">Admin</option>
+      <option value="User">User</option>
+      <option value="Agent">Agent</option>
+    </select>
+    <div class="valid-feedback">Valid.</div>
+    <div class="invalid-feedback">Please fill out this field.</div>
+  </div>
+  <div class="text-center d-flex justify-content-center">
+  <button type="submit" class="btn btn-success flex-fill  mb-3 ms-2">   Save  </button>
+  <button type="button" class="btn btn-danger flex-fill  mb-3 ms-2" (click)="onCancel()">Cancel </button>
+  </div>
+</form>
+

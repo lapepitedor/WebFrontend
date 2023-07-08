@@ -1,0 +1,39 @@
+.container-xl{
+    color: #566787;
+    background: #f5f5f5;
+    font-family: 'Roboto', sans-serif;
+}
+
+#add{
+    right:90px;
+    position: absolute;
+    top: 135px;
+    color: white;
+    font-weight: bold;
+    font-family: Roboto, Arial, sans-serif;
+
+}
+.table-responsive {
+    margin: 30px 0;
+}
+
+.table-wrapper {
+    min-width: 1000px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.table-title {
+    padding-bottom: 10px;
+    margin: 0 0 10px;
+    min-width: 100%;
+}
+.table-title h2 {
+    margin: 8px 0 0;
+    font-size: 22px;
+}
+#list th{
+    background-color: rgb(4, 29, 41);
+    color: white;
+
+}
