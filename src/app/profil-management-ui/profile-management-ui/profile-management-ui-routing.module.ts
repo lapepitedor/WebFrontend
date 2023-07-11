@@ -14,22 +14,23 @@ const routes: Routes = [
     component: ProfileManagementUiComponent,
 
     children: [
+      { path: '', component: DashboardComponent },
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [RouteguardGuard],
+        
       },
-      { path: 'edit', component: ProfilEditComponent },
+
       {
         path: 'profile',
         component: ListProfilComponent,
-        canActivate: [RouteguardGuard],
+       
       },
 
       {
         path: 'profile/:id',
         component: ProfilEditComponent,
-        canActivate: [RouteguardGuard],
+       
       },
     ],
   },

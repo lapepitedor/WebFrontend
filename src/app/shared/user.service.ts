@@ -72,12 +72,8 @@ export class UserService {
     return -1;
   }
 
-  delete(id: number) {
-    let index = this.index(id);
-    if (index != -1) {
-      this.users.splice(index, 1);
-      this.changed.emit();
-    }
+  deleteUser(user: User) {
+    this.users = this.users.filter((u) => u.email !== user.email);
   }
 
   getById(id: number) {
@@ -92,25 +88,31 @@ export class UserService {
   byEmailAndPassword(email: string, password: string) {
     for (let index = 0; index < this.users.length; index++) {
       let user = this.users[index];
-      if (user.email === email && user.password === password)
-        return user;
+      if (user.email === email && user.password === password) return user;
     }
     return null;
   }
 
   save(obj: User) {
-    let index = this.users.findIndex(x => x.id == obj.id);
+    let index = this.users.findIndex((x) => x.id == obj.id);
 
-      if (index >= 0) {
-        this.users[index] = obj;
-      } else {
-        let new_id = Math.max.apply(Math, this.users.map(function (o) { return o.id; })) + 1;
-        obj.id = new_id;
-        this.users.push(obj);
-      }
+    if (index >= 0) {
+      this.users[index] = obj;
+    } else {
+      let new_id =
+        Math.max.apply(
+          Math,
+          this.users.map(function (o) {
+            return o.id;
+          })
+        ) + 1;
+      obj.id = new_id;
+      this.users.push(obj);
+    }
 
-      this.changed.emit(this.getAll());
-    
-  
+    this.changed.emit(this.getAll());
+  }
+  addUser(user: User) {
+    this.users = [user, ...this.users];
   }
 }

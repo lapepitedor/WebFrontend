@@ -13,11 +13,9 @@ import { UserService } from 'src/app/shared/user.service';
   // styleUrls: ['../list-profil/list-profil.css']
 })
 export class ListProfilComponent {
-  dateToday = new Date();
-  dateValue = new Date();
-  isEditDialogVisible = false;
+ 
   user: User = {
-    id:0,
+    id: 0,
     name: '',
     email: '',
     password: '',
@@ -26,6 +24,8 @@ export class ListProfilComponent {
     city: '',
     country: '',
   };
+  dateToday = new Date();
+  dateValue = new Date();
 
   users: User[] = [];
   constructor(
@@ -40,25 +40,33 @@ export class ListProfilComponent {
   }
 
   isFormValid() {
-    return (
+    if (
       this.user.name &&
       this.user.email &&
       this.user.birthDate &&
       this.user.city &&
       this.user.country
-    );
+    ) {
+      return true;
+    }
+    return false;
   }
-
   ShowDialogToAdd() {
-    this.route.navigate(['profile', 0]);
-  }
-
-  editUser() {}
-
-  DeleteUser(id: number) {
-    const index = this.users.findIndex((person) => person.id === id);
-    if (index !== -1) {
-      this.users.splice(index, 1);
+    if (this.authservice.isAdmin() || this.authservice.isAgent()) {
+      
     }
   }
+
+
+
+  deleteUser(id: number) {
+    if (this.authservice.isAdmin()) {
+      const index = this.users.findIndex((person) => person.id === id);
+      if (index !== -1) {
+        this.users.splice(index, 1);
+      }
+    }
+  }
+  addEditUser() { }
+  editUser(){}
 }
