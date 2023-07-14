@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AuthentificationService } from '../shared/authentification.service';
 import { Router } from '@angular/router';
+import { AuthentificationService } from 'src/app/shared/authentification.service';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +17,7 @@ export class LoginComponent implements OnInit {
     private authservice: AuthentificationService,
     private route: Router
   ) {}
-  ngOnInit(): void {
-   
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     let email = this.emailElement.nativeElement.value;

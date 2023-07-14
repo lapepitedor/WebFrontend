@@ -7,11 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./logout.component.css']
 })
 export class LogoutComponent {
-  constructor(private service: AuthentificationService, private router: Router) {
-  
-     this.service.logout();
-     this.router.navigate(['/login']);
-  }
+ 
   
  
 }

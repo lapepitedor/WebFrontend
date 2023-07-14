@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/model/user';
 import { AuthentificationService } from 'src/app/shared/authentification.service';
 import { UserService } from 'src/app/shared/user.service';
@@ -12,8 +12,9 @@ import { UserService } from 'src/app/shared/user.service';
   styleUrls: ['./list-profil.component.css'],
   // styleUrls: ['../list-profil/list-profil.css']
 })
-export class ListProfilComponent {
- 
+export class ListProfilComponent implements OnInit {
+  obj: User | null = null;
+
   user: User = {
     id: 0,
     name: '',
@@ -29,35 +30,22 @@ export class ListProfilComponent {
 
   users: User[] = [];
   constructor(
-    private route: Router,
+    private router: Router,
+    private route: ActivatedRoute,
     private service: UserService,
     public authservice: AuthentificationService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.users = this.service.getAll();
     this.service.changed.subscribe(() => {
       this.users = this.service.getAll();
     });
   }
 
-  isFormValid() {
-    if (
-      this.user.name &&
-      this.user.email &&
-      this.user.birthDate &&
-      this.user.city &&
-      this.user.country
-    ) {
-      return true;
-    }
-    return false;
+  onNewProfil(): void {
+    this.router.navigate(['profile', this.user.id]);
   }
-  ShowDialogToAdd() {
-    if (this.authservice.isAdmin() || this.authservice.isAgent()) {
-      
-    }
-  }
-
-
 
   deleteUser(id: number) {
     if (this.authservice.isAdmin()) {
@@ -67,6 +55,11 @@ export class ListProfilComponent {
       }
     }
   }
-  addEditUser() { }
-  editUser(){}
+ 
+  
+  onEditUser(user: User) {
+    this.router.navigate(['profile', user.id]);
+    console.log(user.id);
+  }
+  
 }
