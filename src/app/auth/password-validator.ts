@@ -18,3 +18,6 @@ export class PasswordValidator {
      }
    return null;
  };
+
+ // [ngClass]="{'is-invalid':registerForm.controls.name.invalid && registerForm.controls.dirty,
+               //    'is-valid':registerForm.controls.name.valid && registerForm.controls.dirty}"

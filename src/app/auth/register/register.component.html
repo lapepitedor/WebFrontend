@@ -1,26 +1,38 @@
-<div>
+<div class="container">
+    <pre>{{registerForm.value |json}}</pre>
     <h3 class="fw-normal mb-3 pb-3">{{title}}</h3>
-    <form  (ngSubmit)="onRegister()" [formGroup]="registerForm" novalidate>
+    <form class="form" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" >
+
         <!-- name input -->
         <div class="form-group mb-3">
             <label for="name" class="form-label fw-bold">Name</label>
-            <input id="name" class="form-control" type="text" placeholder="Your name" formControlName="name" autofocus>
+            <input id="name" class="form-control" type="text" placeholder="Your name" 
+            [ngModel]="object?.name" ngmodel  required
+            name="name" #name="ngModel" autofocus 
+           >
+            
         </div>
         <!-- Email input -->
         <div class="form-group mb-3">
             <label for="email" class="form-label fw-bold">Email</label>
-            <input id="email" class="form-control" type="email" placeholder="Your email" formControlName="email">
+            <input id="email" class="form-control" type="email" placeholder="Your email" 
+            name="email"
+            [ngModel]="object?.email"  ngModel required
+            >
+            
         </div>
+
         <!-- Password input -->
         <div class="form-group mb-3">
             <label for="password" class="form-label fw-bold">Password</label>
-            <input id="password" class="form-control" type="password" formControlName="password" placeholder="Your password">
+            <input id="password" class="form-control" type="password"  
+            placeholder="Your password" name="password" [ngModel]="object?.password"  ngModel required>
         </div>
         <!-- Repeat Password input -->
         <div class="mb-3 mt-3">
             <label for="repeatPassword" class="form-label fw-bold">Repeat Passwort:</label>
             <input type="text" class="form-control" id="repeatPassword" placeholder="Enter your password"
-                name="repeatPassword" formControlName="repeatPassword"/>
+                name="repeatPassword" />
                 <span *ngIf="registerForm.errors?.['passwordmatchingerror']">Password is not matching</span>
         </div>
 
@@ -28,21 +40,27 @@
 
         <div class="form-group mb-3">
             <label for="birthdate" class="form-label fw-bold">Date of Birth</label>
-            <input id="birthdate" class="form-control" formControlName="birthDate" type="date"
-                [max]="dateToday | date: 'yyyy-MM-dd'">
+            <input id="birthdate" name="birthdate" class="form-control"  type="date" name="birthdate"
+                [max]="dateToday | date: 'yyyy-MM-dd'" [ngModel]="object?.birthDate"  ngModel required>
         </div>
+
         <!-- City input -->
         <div class="form-group mb-3">
             <label for="city" class="form-label fw-bold">City</label>
-            <input id="city" class="form-control" type="text" formControlName="city" placeholder="Your city">
+            <input id="city" name="city" class="form-control" type="text"  placeholder="Your city"
+            [ngModel]="object?.city"  ngModel required>
         </div>
+
+        <!-- Country input -->
         <div class="form-group mb-3">
             <label for="country" class="form-label fw-bold">Country</label>
-            <input id="country" class="form-control" formControlName="country" type="text" placeholder="Your country">
+            <input id="country" name="country" class="form-control" type="text" placeholder="Your country"
+           name="country" [ngModel]="object?.country"  ngModel required>
         </div>
+
         <div class="form-group mb-3">
             <label for="role" class="form-label fw-bold">Roles</label>
-            <select id="role" class="form-select" formControlName="role">
+            <select id="role" name="role" class="form-select" [ngModel]="object?.role"  ngModel required>
                 <option value="admin">Admin</option>
                 <option value="agent">Agent</option>
                 <option value="user">User</option>
@@ -50,10 +68,6 @@
         </div>
 
        
-        
-
-        
-
         <!-- Checkbox -->
         <div class="form-check d-flex justify-content-center mb-4">
             <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
@@ -66,13 +80,15 @@
         </div>
 
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block mb-3" [disabled]="registerForm.invalid">
+        <button type="submit" class="btn btn-primary btn-block mb-3" >
             Sign Up
         </button>
 
-        <button type="button" class="btn btn-info btn-block mb-3 ms-2">
-            Clear All
+        <button type="button" class="btn btn-info btn-block mb-3 ms-2" (click)="onCancel()">
+           Cancel
         </button>
     </form>
+    
 </div>
+
 
