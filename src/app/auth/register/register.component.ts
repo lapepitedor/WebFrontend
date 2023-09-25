@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { AuthentificationService } from 'src/app/shared/authentification.service';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { UserService } from 'src/app/shared/user.service';
 import { passwordvalidator } from '../password-validator';
 import { User } from 'src/app/model/user';
@@ -13,15 +12,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RegisterComponent {
   title = 'Create your account';
-  object: User | null = null;
+  userInfo: User = {
+    id: 0,
+    name: '',
+    email: '',
+    password: '',
+    role: 'agent',
+    birthDate: new Date(),
+    city: '',
+    country: '',
+  };
   dateToday = new Date();
   registerForm: FormGroup;
+
   constructor(
     private route: ActivatedRoute,
     private userservice: UserService,
     private router: Router
   ) {
-    this.registerForm = new FormGroup(
+     this.registerForm = new FormGroup(
       {
         name: new FormControl(null, [Validators.required]),
         email: new FormControl(null, [Validators.required, Validators.email]),
@@ -39,45 +48,25 @@ export class RegisterComponent {
     );
   }
 
-  onRegister() {
-    if (!this.registerForm.valid) {
-      return;
-    }
-    if (this.object) {
-      this.object.name = this.registerForm.controls['name'].value;
 
-      this.object.email = this.registerForm.controls['email'].value;
-      this.object.password = this.registerForm.controls['password'].value;
-      this.object.birthDate = this.registerForm.controls['birthDate'].value;
-      this.object.role = this.registerForm.controls['role'].value;
-      this.object.city = this.registerForm.controls['city'].value;
-      this.object.country = this.registerForm.controls['country'].value;
-      this.userservice.save(this.object);
-      this.router.navigate(['/login']);
-      console.log(this.registerForm);
-      console.log('OK');
-    }
-  }
-  onSubmit(registerForm: NgForm) {
-  
-    if (this.object) {
-      this.object.name = registerForm.controls['name'].value;
-
-      this.object.email = registerForm.controls['email'].value;
-      this.object.password = registerForm.controls['password'].value;
-      this.object.birthDate =registerForm.controls['birthDate'].value;
-      this.object.role = registerForm.controls['role'].value;
-      this.object.city = registerForm.controls['city'].value;
-      this.object.country = registerForm.controls['country'].value;
-      this.userservice.save(this.object);
-      this.router.navigate(['/login']);
-      console.log('OK');
+onSubmit(registerForm: NgForm) {
+  if (!this.registerForm.valid) {
       
-    }
-    
-    
-  }
+      console.log("register");
+    } 
+  this.userInfo.name = this.registerForm.controls['name'].value;
+
+  this.userInfo.email = this.registerForm.controls['email'].value;
+  this.userInfo.password = this.registerForm.controls['password'].value;
+  this.userInfo.birthDate = this.registerForm.controls['birthDate'].value;
+  this.userInfo.role = this.registerForm.controls['role'].value;
+  this.userInfo.city = this.registerForm.controls['city'].value;
+  this.userInfo.country = this.registerForm.controls['country'].value;
+  this.userservice.save(this.userInfo);
+  console.log(registerForm.value);
+  this.router.navigate(['/login']);
+}
   onCancel() {
-    this.router.navigate(["/login"]);
+    this.router.navigate(['/login']);
   }
 }

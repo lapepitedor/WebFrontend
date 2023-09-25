@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
     let password = this.passwordElement.nativeElement.value;
     if (this.authservice.login(email, password)) {
       this.route.navigate(['/dashboard']);
-    } else {
+    } else
+    {
       this.login_failed = true;
     }
   }

@@ -2,6 +2,7 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { UserService } from './user.service';
 import { User } from '../model/user';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +13,10 @@ export class AuthentificationService {
 
   active_user: User = new User(0, '', '', '', 'user', new Date(), '', '');
 
-  constructor(private userservice: UserService, router: Router) {}
+  constructor(private service: AngularFireAuth) {}
 
   login(email: string, password: string): Boolean {
-    const user = this.userservice.byEmailAndPassword(email, password);
+    const user = this.service.byEmailAndPassword(email, password);
     if (user) {
       this.active_user = user;
       this.isLogginIn = true;

@@ -21,3 +21,13 @@ export class PasswordValidator {
 
  // [ngClass]="{'is-invalid':registerForm.controls.name.invalid && registerForm.controls.dirty,
                //    'is-valid':registerForm.controls.name.valid && registerForm.controls.dirty}"
+
+
+             /*  const firebaseConfig = {
+                 apiKey: 'AIzaSyDVRf0x6C0xJFlNL_EMoRO9sx9pmL5Y0fM',
+                 authDomain: 'profilmanagerapp.firebaseapp.com',
+                 projectId: 'profilmanagerapp',
+                 storageBucket: 'profilmanagerapp.appspot.com',
+                 messagingSenderId: '828991318293',
+                 appId: '1:828991318293:web:0862acb562a9e745c6e11c',
+               }; */
