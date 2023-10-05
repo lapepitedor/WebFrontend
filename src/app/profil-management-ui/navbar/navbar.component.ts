@@ -10,9 +10,9 @@ export class NavbarComponent {
   is_logged_in: boolean;
 
   constructor(private service: AuthentificationService) {
-    this.is_logged_in = this.service.isLogginIn;
+    this.is_logged_in = this.service.isLogginIn();
     this.service.changed.subscribe(() => {
-      this.is_logged_in = this.service.isLogginIn;
+      this.is_logged_in = this.service.isLogginIn();
     });
   }
 }

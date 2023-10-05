@@ -3,85 +3,34 @@
 
   <h3 class="fw-normal mb-3 pb-3">Sign into your account</h3>
 
-  <div class="mb-3 text-center">
+  <div class=" text-center">
     <span>Don't have an account? </span>
-    <a
-      routerLink="/register"
-      class="font-medium no-underline text-blue-500 cursor-pointer"
-      >Create today!</a
-    >
+    <a routerLink="/register" class="font-medium no-underline text-blue-500 cursor-pointer">Create today!</a>
   </div>
 
-  <form class="form-group" class="was-validated">
-    <!-- Email input -->
-    <div class="mb-3 mt-3">
-      <label for="email" class="form-label">Email:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="email"
-        placeholder="Enter your Email"
-        name="email"
-        required
-        #email
-      />
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Please fill out this field.</div>
-    </div>
-    <!-- Password input -->
-    <div class="mb-3">
-      <label for="pwd" class="form-label">Password:</label>
-      <input
-        type="password"
-        class="form-control"
-        id="pwd"
-        placeholder="Enter password"
-        name="pswd"
-        required
-        #password
-      />
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Please fill out this field.</div>
-    </div>
-    <div class="form-check mb-3">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id="myCheck"
-        name="remember"
-        required
-      />
-      <label class="form-check-label" for="myCheck"
-        >I agree to the terms and conditions</label
-      >
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Check this checkbox to continue.</div>
-    </div>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+  
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Your Email is .." formControlName="email" />
+  
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Your Password is .." formControlName="password" />
+  
+    <button type="submit">Sign In</button>
 
-    <!-- Submit button -->
-    <button
-      type="submit"
-      class="btn btn-primary btn-block mb-4"
-      (click)="onSubmit()"
-    >
-      Sign In
-    </button>
-
-    <br />
-    <div
-      class="toast show"
-     
-      
-      *ngIf="login_failed"
-    >
-    <div class="toast-header bg-danger">
+    <div class="toast show" *ngIf="login_failed">
+      <div class="toast-header bg-danger">
         <strong class="me-auto">Error</strong>
         <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-    </div>
-    <div class="toast-body">
+      </div>
+      <div class="toast-body">
         <p> Hello, No User found with this email and passwort</p>
+      </div>
     </div>
-    
-    </div>
+
   </form>
+
+  
+     
+ 
 </div>

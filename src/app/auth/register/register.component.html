@@ -30,13 +30,6 @@
             placeholder="Your password" name="password" [(ngModel)]="userInfo.password"   required>
         </div>
 
-        <!-- Repeat Password input -->
-        <div class="mb-3 mt-3">
-            <label for="repeatPassword" class="form-label fw-bold">Repeat Passwort:</label>
-            <input type="text" class="form-control" id="repeatPassword" placeholder="Enter your password"
-                name="repeatPassword" required/>
-                <span *ngIf="registerForm.errors?.['passwordmatchingerror']">Password is not matching</span>
-        </div>
 
         <!-- Birthday input -->
 

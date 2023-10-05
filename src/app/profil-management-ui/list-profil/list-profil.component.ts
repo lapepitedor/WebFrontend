@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/model/user';
@@ -14,6 +15,7 @@ import { UserService } from 'src/app/shared/user.service';
 })
 export class ListProfilComponent implements OnInit {
   obj: User | null = null;
+  formEdit: FormGroup = new FormGroup({});
 
   user: User = {
     id: 0,
@@ -43,8 +45,10 @@ export class ListProfilComponent implements OnInit {
     });
   }
 
+
   onNewProfil(): void {
     this.router.navigate(['profile', this.user.id]);
+    
   }
 
   deleteUser(id: number) {

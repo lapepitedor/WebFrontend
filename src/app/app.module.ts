@@ -25,28 +25,28 @@ const routes: Routes = [
   
 ];
 
- const firebaseConfig = {
-                 apiKey: 'AIzaSyDVRf0x6C0xJFlNL_EMoRO9sx9pmL5Y0fM',
-                 authDomain: 'profilmanagerapp.firebaseapp.com',
-                 projectId: 'profilmanagerapp',
-                 storageBucket: 'profilmanagerapp.appspot.com',
-                 messagingSenderId: '828991318293',
-                 appId: '1:828991318293:web:0862acb562a9e745c6e11c',
-}; 
-               
+const firebaseConfig = {
+  apiKey: 'AIzaSyDdhMKX4heggWO60XZD5uxfm6Mj8CZcXJY',
+  authDomain: 'profilemanagementapp.firebaseapp.com',
+  projectId: 'profilemanagementapp',
+  storageBucket: 'profilemanagementapp.appspot.com',
+  messagingSenderId: '208753980826',
+  appId: '1:208753980826:web:95cde68a41a30117c8b623',
+};
+              
 @NgModule({
   declarations: [AppComponent, LogoutComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     AuthModule,
+    ReactiveFormsModule,
+    FormsModule,
     ProfileManagementUiModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     FirestoreModule,
-
-   
   ],
   exports: [RouterModule],
   providers: [UserService, RouteguardGuard, AuthentificationService],

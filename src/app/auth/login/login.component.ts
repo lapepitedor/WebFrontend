@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthentificationService } from 'src/app/shared/authentification.service';
 
@@ -9,24 +10,30 @@ import { AuthentificationService } from 'src/app/shared/authentification.service
 })
 export class LoginComponent implements OnInit {
   login_failed: boolean = false;
-  @ViewChild('email')
-  emailElement!: ElementRef;
-  @ViewChild('password') passwordElement!: ElementRef;
+  loginForm!: FormGroup;
+  
+ 
 
   constructor(
     private authservice: AuthentificationService,
-    private route: Router
+    private route: Router,
+   
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+    });
+  }
 
-  onSubmit() {
-    let email = this.emailElement.nativeElement.value;
-    let password = this.passwordElement.nativeElement.value;
-    if (this.authservice.login(email, password)) {
-      this.route.navigate(['/dashboard']);
-    } else
-    {
-      this.login_failed = true;
-    }
+ 
+  login() {
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+     if (this.authservice.login(email, password)) {
+       this.route.navigate(['/dashboard']);
+     } else {
+       this.login_failed = true;
+     }
   }
 }

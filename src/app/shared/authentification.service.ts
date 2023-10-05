@@ -9,34 +9,32 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class AuthentificationService {
   @Output() changed = new EventEmitter();
-  isLogginIn = false;
-
+  
   active_user: User = new User(0, '', '', '', 'user', new Date(), '', '');
 
-  constructor(private service: AngularFireAuth) {}
+  constructor(
+    private service: AngularFireAuth,
+    private userservice: UserService
+  ) {}
 
-  login(email: string, password: string): Boolean {
-    const user = this.service.byEmailAndPassword(email, password);
-    if (user) {
+  login(email: string, password: string) {
+    const user = this.userservice.byEmailAndPassword(email, password);
+    if (user !== null) {
       this.active_user = user;
-      this.isLogginIn = true;
-      this.changed.emit();
-      return true;
     }
-    return false;
+    return this.isLogginIn();
   }
 
   logout() {
-    //this.active_user = null;
-   // this.changed.emit();
-    this.isLogginIn =false;
+    // this.active_user = null;
+    // this.changed.emit();
   }
 
   register() {}
 
- // isLogginIn() {
-  //  return this.active_user != null;
- // }
+  isLogginIn() {
+    return this.active_user != null;
+  }
 
   isAdmin(): boolean {
     return this.active_user !== null && this.active_user.role === 'admin';
