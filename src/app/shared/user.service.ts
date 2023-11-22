@@ -1,75 +1,70 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { User } from '../model/user';
+import { User } from '../Features/model/user';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   @Output() changed = new EventEmitter();
-  users: User[] = [
-    new User(
-      1,
-      'John Doe',
-      'johndoe@gmail.com',
-      'johndoe@gmail.com',
-      'user',
-      new Date('12.06.1995'),
-      'Dormund',
-      'Germany'
-    ),
-    new User(
-      2,
-      'Jane Doe',
-      'janedoe@gmail.com',
-      'janedoe@gmail.com',
-      'user',
-      new Date('12.06.1995'),
-      'Achen',
-      'Germany'
-    ),
-    new User(
-      3,
-      'John Smith',
-      'johnsmith@gmail.com',
-      'johnsmith@gmail.com',
-      'agent',
-      new Date('01.01.1999'),
-      'Gießen',
-      'Germany'
-    ),
-    new User(
-      4,
-      'Jane Smith',
-      'janesmith@gmail.com',
-      'janesmith@gmail.com',
-      'agent',
-      new Date('05.02.2002'),
-      'Frankfurt',
-      'Germany'
-    ),
-    new User(
-      5,
-      'Messu Brinda',
-      'admin@gmail.com',
-      'admin@gmail.com',
-      'admin',
-      new Date('05.02.2003'),
-      'Paris',
-      'France'
-    ),
-  ];
-  getAll() {
-    return this.users.slice();
-  }
+  users: User[] = [];
+ 
+  constructor(private db: AngularFirestore) {}
 
-  private index(id: number) {
-    // fech the index of a id of a user
-    for (let i = 0; i < this.users.length; i++) {
-      if (this.users[i].id == id) {
-        return i;
-      }
-    }
-    return -1;
+  async getAll() {
+    //retourne un obj type promise check ob the loading of data is complete or not
+    // return new Promise<User[]>((resolve) => {
+
+    //   let collection = this.db.collection('user');
+
+    //   collection.get().subscribe(function (snapshot) {
+    //     let users: User[] = [];
+    //     snapshot.forEach(function (doc) {
+    //       let data = doc.data;
+    //       let obj = new User(
+    //         doc.id,
+    //         data['name'],
+    //         data['email'],
+    //         data['role'],
+    //         data['birthDate'],
+    //         data['address'],
+    //         data['gender'],
+    //         data['password']
+    //       );
+    //       users.push(obj);
+    //     });
+    //     resolve(users);
+    //   });
+    // });
+ try {
+   const collection = this.db.collection('users');
+   const querySnapshot = await collection.get().toPromise();
+
+   const users: User[] = [];
+   querySnapshot.forEach((doc) => {
+     const data = doc.data();
+     const user = new User(
+       doc.id,
+       data['name'],
+       data['email'],
+       data['password'],
+       data['role'],
+       data['birthDate'] , // Récupération de la date sans l'heure,
+       data['gender'],
+       data['password']
+     );
+     users.push(user);
+   });
+
+   console.log('Données récupérées dans le service :', users);
+   return users;
+ } catch (error) {
+   console.error('Erreur lors de la récupération des données :', error);
+   return []; // Retourne un tableau vide en cas d'erreur
+ }
+    
   }
 
   deleteUser(user: User) {
@@ -77,42 +72,34 @@ export class UserService {
   }
 
   getById(id: number) {
-    let index = this.index(id);
-    if (index != -1) {
-      return this.users[index];
-    } else {
-      return null;
-    }
-  }
-
-  byEmailAndPassword(email: string, password: string) {
-    for (let index = 0; index < this.users.length; index++) {
-      let user = this.users[index];
-      if (user.email === email && user.password === password) return user;
-    }
     return null;
   }
 
-  save(obj: User) {
-    let index = this.users.findIndex((x) => x.id == obj.id);
-
-    if (index >= 0) {
-      this.users[index] = obj;
-    } else {
-      let new_id =
-        Math.max.apply(
-          Math,
-          this.users.map(function (o) {
-            return o.id;
-          })
-        ) + 1;
-      obj.id = new_id;
-      this.users.push(obj);
+  save(user: User) {
+    let collection = this.db.collection("users");
+    let tmp = {
+      "email": user.email,
+      "name": user.name,
+      "password": user.password,
+      "gender": user.gender,
+      "birthday": user.birthDate,
+      "role": user.role,
+      "address": user.address
+      
+    };
+    if (user.id == "") {
+      collection.add(tmp).then(doc => {
+        user.id = doc.id;
+        this.changed.emit();
+      });
     }
+      else {
+      collection.doc(user.id).set(tmp).then(() => {
+        this.changed.emit();
+        })
+      }
+    }
+  
 
-    this.changed.emit(this.getAll());
-  }
-  addUser(user: User) {
-    this.users = [user, ...this.users];
-  }
+  
 }
