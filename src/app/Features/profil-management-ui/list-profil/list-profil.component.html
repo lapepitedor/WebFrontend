@@ -77,33 +77,33 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
 
-      <table class="table table-striped table-hover table-bordered" id="list">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Role</th>
-            <th>Birthdate</th>
-            <th>Gender</th>
-            <th>Address</th>
+  //     <table class="table table-striped table-hover table-bordered" id="list">
+  //       <thead>
+  //         <tr>
+  //           <th>#</th>
+  //           <th>Name</th>
+  //           <th>Email</th>
+  //           <th>Password</th>
+  //           <th>Role</th>
+  //           <th>Birthdate</th>
+  //           <th>Gender</th>
+  //           <th>Address</th>
 
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.password }}</td>
-            <td>{{ user.role }}</td>
-            <td>{{ user.birthDate }}</td>
-            <td>{{ user.gender }}</td>
-            <td>{{ user.address }}</td>
-            <td>
-              &nbsp;
+  //           <th>Actions</th>
+  //         </tr>
+  //       </thead>
+  //       <tbody>
+  //         <tr *ngFor="let user of users; let i = index">
+  //           <td>{{ i + 1 }}</td>
+  //           <td>{{ user.name }}</td>
+  //           <td>{{ user.email }}</td>
+  //           <td>{{ user.password }}</td>
+  //           <td>{{ user.role }}</td>
+  //           <td>{{ user.birthDate }}</td>
+  //           <td>{{ user.gender }}</td>
+  //           <td>{{ user.address }}</td>
+  //           <td>
+  //             &nbsp;
 
               <button type="button" class="btn btn-success" title="Edit" (click)="onEditUser(user)"
                 [disabled]="!(authservice.isAdmin() || authservice.isAgent())">
@@ -128,10 +128,10 @@
     0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                 </svg>
               </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  //           </td>
+  //         </tr>
+  //       </tbody>
+  //     </table>
 
     </div>
   </div>
