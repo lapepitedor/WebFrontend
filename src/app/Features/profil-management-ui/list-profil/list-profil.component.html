@@ -1,0 +1,163 @@
+<div class="container-xl">
+
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-8">
+            <h2>List <b>Profil</b></h2>
+          </div>
+          <div class="col-sm-4 text-end"><!--todo: Position du bouton-->
+            <button mat-button id="add" type="button" class="btn btn-success" (click)="onNewProfil()">
+              <!-- [disabled]="!(authservice.isAdmin() || authservice.isAgent())" -->
+              New Profil
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="demo-button-container">
+        <button mat-raised-button (click)="onNewProfil()" class="demo-button">
+          Add data
+        </button>
+        <button mat-raised-button  (click)="deleteUser()" class="demo-button">
+          Remove data
+        </button>
+      </div>
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let profil"> {{profil.name}} </td>
+
+        </ng-container>
+
+       
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let profil"> {{profil.email}} </td>
+        </ng-container>
+
+       
+        <ng-container matColumnDef="password">
+          <th mat-header-cell *matHeaderCellDef> Password </th>
+          <td mat-cell *matCellDef="let profil"> {{profil.password </td>
+        </ng-container>
+
+        <ng-container matColumnDef="BirthDate">
+          <th mat-header-cell *matHeaderCellDef> Birthdate </th>
+          <td mat-cell *matCellDef="let profil"> {{profil.birthDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef>Adresse </th>
+          <td mat-cell *matCellDef="let profil"> {{profil.address </td>
+        </ng-container>
+
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef>  Gender </th>
+          <td mat-cell *matCellDef="let profil"> {{profil.gender}} </td>
+        </ng-container>
+
+          <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef>Role</th>
+            <td mat-cell *matCellDef="let profil"> {{profil.role </td>
+          </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+  //     <table class="table table-striped table-hover table-bordered" id="list">
+  //       <thead>
+  //         <tr>
+  //           <th>#</th>
+  //           <th>Name</th>
+  //           <th>Email</th>
+  //           <th>Password</th>
+  //           <th>Role</th>
+  //           <th>Birthdate</th>
+  //           <th>Gender</th>
+  //           <th>Address</th>
+
+  //           <th>Actions</th>
+  //         </tr>
+  //       </thead>
+  //       <tbody>
+  //         <tr *ngFor="let user of users; let i = index">
+  //           <td>{{ i + 1 }}</td>
+  //           <td>{{ user.name }}</td>
+  //           <td>{{ user.email }}</td>
+  //           <td>{{ user.password }}</td>
+  //           <td>{{ user.role }}</td>
+  //           <td>{{ user.birthDate }}</td>
+  //           <td>{{ user.gender }}</td>
+  //           <td>{{ user.address }}</td>
+  //           <td>
+  //             &nbsp;
+
+              <button type="button" class="btn btn-success" title="Edit" (click)="onEditUser(user)"
+                [disabled]="!(authservice.isAdmin() || authservice.isAgent())">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                </svg>
+              </button>
+
+              &nbsp;&nbsp;&nbsp;&nbsp;
+
+              <button class="btn btn-danger" title="Delete" data-toggle="tooltip" [disabled]="!(authservice.isAdmin())"
+                (click)="deleteUser()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3"
+                  viewBox="0 0 16 16">
+                  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 
+  1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 
+  16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958
+   1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1
+   .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5
+    0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                </svg>
+              </button>
+  //           </td>
+  //         </tr>
+  //       </tbody>
+  //     </table>
+
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+
+<div class="modal" tabindex="-1" id="myModal">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 500px;">
+
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title fs-5" id="editUserModalLabel">Edit User</h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>

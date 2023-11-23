@@ -9,13 +9,13 @@ import { AuthentificationService } from './authentification.service';
 export class RouteguardGuard implements CanActivate {
   constructor(private authservice: AuthentificationService, private route :Router){}
   canActivate(): boolean{
-    if (!this.authservice.isLogginIn) {
-      this.route.navigate(['/login']);
-      return false;
+     if (!this.authservice.isLogged_in) {
+       this.route.navigate(['/auth/login']);
+       return false;
      
-    }
-   return true;
-    
+     }
+      return true;
+            
   }
     
   

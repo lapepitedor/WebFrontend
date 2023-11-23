@@ -1,42 +1,44 @@
 import { Component, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Importez BrowserAnimationsModule
+
 
 import { AppComponent } from './app.component';
 
-import { LogoutComponent } from './logout/logout.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LogoutComponent } from './Features/auth/components/logout/logout.component';
+import { PageNotFoundComponent } from './Features/profil-management-ui/page-not-found/page-not-found.component';
 import { Routes ,RouterModule} from '@angular/router';
 import { UserService } from './shared/user.service';
 import { RouteguardGuard } from './shared/routeguard.guard';
 import { AuthentificationService } from './shared/authentification.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProfileManagementUiModule } from './profil-management-ui/profile-management-ui/profile-management-ui.module';
+
+import { ProfileManagementUiModule } from './Features/profil-management-ui/profile-management-ui.module';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './Features/auth/auth.module';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { FirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
-
-
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { MatTableModule } from '@angular/material/table';
 
 
 const routes: Routes = [
   
 ];
-
 const firebaseConfig = {
-  apiKey: 'AIzaSyDdhMKX4heggWO60XZD5uxfm6Mj8CZcXJY',
-  authDomain: 'profilemanagementapp.firebaseapp.com',
-  projectId: 'profilemanagementapp',
-  storageBucket: 'profilemanagementapp.appspot.com',
-  messagingSenderId: '208753980826',
-  appId: '1:208753980826:web:95cde68a41a30117c8b623',
+  apiKey: 'AIzaSyCDfdposhMdBBKtpqXCme6IRM_X666fHuw',
+  authDomain: 'profilmanager-2db1c.firebaseapp.com',
+  projectId: 'profilmanager-2db1c',
+  storageBucket: 'profilmanager-2db1c.appspot.com',
+  messagingSenderId: '508105089163',
+  appId: '1:508105089163:web:c74494c1d5b2f94e00348e',
 };
-              
+
 @NgModule({
-  declarations: [AppComponent, LogoutComponent, PageNotFoundComponent],
+  declarations: [AppComponent],
   imports: [
+   
     BrowserModule,
     RouterModule.forRoot(routes),
     AuthModule,
@@ -44,12 +46,13 @@ const firebaseConfig = {
     FormsModule,
     ProfileManagementUiModule,
     AppRoutingModule,
+    BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    FirestoreModule,
+    AngularFirestoreModule,
   ],
   exports: [RouterModule],
-  providers: [UserService, RouteguardGuard, AuthentificationService],
+  providers: [RouteguardGuard, AuthentificationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

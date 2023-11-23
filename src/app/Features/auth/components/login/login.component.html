@@ -1,0 +1,78 @@
+<div>
+
+
+
+   
+<form>
+      
+
+       
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" *ngIf="login_failed">
+            <div class="toast-header bg-danger">
+                
+                <strong class="me-auto">Error</strong>
+
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Hello, No User found with this email and passwort
+            </div>
+        </div>
+
+</form>
+
+  
+
+</div>
+
+<section class="vh-100 gradient-custom">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+            <div class="card shadow-2-strong card-login" style="border-radius: 15px;">
+                <div class="card-body p-4 p-md-5">
+                    
+                    <h1 class=" fw-normal pb-3 mb-3 text-center">Welcome Back </h1>
+                    
+                    <h3 class="fw-normal mb-3 pb-3 text-center">Sign into your account</h3>
+                    
+                    <div class="mb-3 text-center">
+                    
+                        <span>Don't have an account? </span>
+                        <a routerLink="/register" class="font-medium no-underline text-blue-500 cursor-pointer">Create today!</a>
+                    </div>
+                    <form>
+                    
+                        <div class="col-md-12 mb-4 pb-2">
+                    
+                            <div class="form-outline">
+                                <input type="email" id="emailAddress" name="email" class="form-control form-control-lg" 
+                                placeholder="Enter your Email" required #email/>
+                                <label class="form-label" for="emailAddress">Email</label>
+                            </div>
+                    
+                        </div>
+                        <div class="col-md-12 mb-4 pb-2">
+                    
+                            <div class="form-outline">
+                                <input type="tel" id="password" name="password" class="form-control form-control-lg" 
+                                placeholder="Enter password" required #password/>
+                                <label class="form-label" for="password">Password</label>
+                            </div>
+                    
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="myCheck" name="remember" required>
+                            <label class="form-check-label" for="myCheck">I agree to the terms and conditions</label>
+                          
+                            <div class="invalid-feedback">Check this checkbox to continue.</div>
+                        </div>
+                <div class="mt-4 pt-2">
+                    <input class="btn btn-primary btn-lg" type="submit" value="Submit" (click)="onSubmit()"/>
+                </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
