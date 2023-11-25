@@ -6,9 +6,9 @@ export class User {
   email: string;
    password: string;
   role: UserRole;
-  birthDate: Date;
+  tel: string;
   gender: 'female' | 'male';
-  address: string;
+  country: string;
 
   constructor(
     id: string,
@@ -16,17 +16,17 @@ export class User {
     email: string,
      password: string,
     role: UserRole ,
-    birthDate: Date,
+    tel: string,
     gender: 'female' | 'male',
-    address: string
+   country: string
   ) {
     this.id = id;
     this.name = name;
     this.email = email;
       this.password = password;
     this.role = role;
-    this.birthDate = birthDate;
+    this.tel = tel;
     this.gender = gender;
-    this.address = address;
+    this.country = country;
   }
 }

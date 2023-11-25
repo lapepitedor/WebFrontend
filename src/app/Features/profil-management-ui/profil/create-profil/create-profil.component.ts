@@ -20,9 +20,9 @@ export class CreateProfilComponent {
     email: '',
     password: '',
     role: UserRole.Admin,
-    birthDate: new Date(),
+    tel: '',
     gender: 'male',
-    address: '',
+    country: '',
   };
   email = new FormControl('', [Validators.required, Validators.email]);
 
@@ -31,8 +31,8 @@ export class CreateProfilComponent {
   profilForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    birthDate: new FormControl(null, [Validators.required]),
-    address: new FormControl('', [Validators.required]),
+    country: new FormControl('', [Validators.required]),
+    tel: new FormControl('', [Validators.required]),
     role: new FormControl(null, [Validators.required]),
     password: new FormControl('', [Validators.required]),
     genderOptions: new FormControl(null, [Validators.required]),
@@ -56,13 +56,16 @@ export class CreateProfilComponent {
     this.userInfo.name = this.profilForm.value.name;
     this.userInfo.email = this.profilForm.value.email;
     this.userInfo.password = this.profilForm.value.password;
-    this.userInfo.birthDate = this.profilForm.value.birthDate;
+    this.userInfo.tel = this.profilForm.value.tel;
     this.userInfo.role = this.profilForm.value.role;
     this.userInfo.gender = this.profilForm.value.genderOptions;
-    this.userInfo.address = this.profilForm.value.address;
+    this.userInfo.country = this.profilForm.value.country;
     console.log(this.userInfo);
     this.service.save(this.userInfo);
 
+    this.router.navigate(['/profile']);
+  }
+  onCancel() {
     this.router.navigate(['/profile']);
   }
 }

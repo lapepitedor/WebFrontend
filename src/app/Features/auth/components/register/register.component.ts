@@ -24,9 +24,9 @@ export class RegisterComponent {
     email: '',
     password: '',
     role: UserRole.Admin,
-    birthDate: new Date(),
+    tel: null,
     gender: 'male',
-    address: '',
+    country: '',
   };
   constructor(
     private route: ActivatedRoute,
@@ -38,8 +38,8 @@ export class RegisterComponent {
   registerForm = new FormGroup({
     name: new FormControl(null, [Validators.required]),
     email: new FormControl(null, [Validators.required, Validators.email]),
-    birthDate: new FormControl(null, [Validators.required]),
-    address: new FormControl(null),
+    tel: new FormControl(null, [Validators.required]),
+   country: new FormControl(null),
     role: new FormControl(null),
     password: new FormControl(null, [Validators.required]),
     genderOptions: new FormControl(null, [Validators.required]),
@@ -55,10 +55,10 @@ export class RegisterComponent {
     this.userInfo.name = this.registerForm.value.name;
     this.userInfo.email = this.registerForm.value.email;
     this.userInfo.password = this.registerForm.value.password;
-    this.userInfo.birthDate = this.registerForm.value.birthDate;
+    this.userInfo.tel = this.registerForm.value.tel;
     this.userInfo.role = this.registerForm.value.role;
     this.userInfo.gender = this.registerForm.value.genderOptions;
-    this.userInfo.address = this.registerForm.value.address;
+    this.userInfo.country = this.registerForm.value.country;
     console.log(this.userInfo);
     this.authservice.register(this.userInfo);
 

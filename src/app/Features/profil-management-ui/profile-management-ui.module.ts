@@ -23,7 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
  import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -53,6 +53,7 @@ console.log('HelloProfil');
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
+    MatDialogModule
   ],
   providers: [UserService],
 })

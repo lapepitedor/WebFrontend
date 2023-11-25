@@ -10,15 +10,14 @@ import { UserRole } from '../../model/UserRole';
 })
 export class DashboardComponent implements OnInit {
   description = 'Dashboard';
-  isEditDialogVisible = false;
-  dateToday = new Date();
+ 
   user: User = new User(
     '0',
     '',
     '',
     '',
     UserRole.Admin,
-    new Date(),
+    null,
     'male',
     ''
   );
@@ -30,29 +29,25 @@ export class DashboardComponent implements OnInit {
     } else return;
   }
 
-  dateChanged(event: Event) {
-    const val = (event.target as HTMLInputElement).value;
-    this.user.birthDate = new Date(val);
-  }
 
   isFormValid() {
     return (
       this.user.name &&
       this.user.email &&
-      this.user.birthDate &&
+      this.user.tel &&
       this.user.gender &&
-      this.user.address
+      this.user.country
     );
   }
 
   showDialogToEdit() {
     this.user = { ...this.authService.active_user };
-    this.isEditDialogVisible = true;
+    
   }
 
   editUser() {
     this.authService.active_user = { ...this.user };
-    this.isEditDialogVisible = false;
+    
     // Ajoutez ici la logique pour afficher un message de succès
   }
 }

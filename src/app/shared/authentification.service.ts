@@ -20,7 +20,7 @@ export class AuthentificationService {
     '',
     '',
     UserRole.Admin,
-    new Date(),
+    null,
     'male',
     ''
   );

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/Features/model/user';
 import { UserService } from 'src/app/shared/user.service';
 import { UserRole } from '../../model/UserRole';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -13,54 +14,59 @@ import { UserRole } from '../../model/UserRole';
   styleUrls: ['./profil-edit.component.css'],
 })
 export class ProfilEditComponent implements OnInit {
-  dateToday = new Date();
-  dateValue = new Date();
-  obj: User | null = null;
-  formEdit: FormGroup = new FormGroup({});
-  
+  hide = true;
+  id: string = '';
+  formEdit: FormGroup;
+
   user: User = {
     id: '0',
     name: '',
     email: '',
     password: '',
     role: UserRole.Admin,
-    birthDate: new Date(),
+    tel: '',
     gender: 'male',
-    address: '',
+    country: '',
   };
 
   constructor(
+    private fb:FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService
   ) {
-    let id = this.route.snapshot.params['id'];
-
-    if (id == 0) {
-      this.obj = new User('0', '', '', '', UserRole.Admin, new Date(), 'male', '');
-    }
-    else {
-      this.obj = this.userService.getById(id);
-    }
-  
-      this.formEdit = new FormGroup({
-        name: new FormControl("", [
-          Validators.required,
-          Validators.minLength(4),
-        ]),
-        email: new FormControl("", [
-          Validators.required,
-          Validators.email,
-        ]),
-        
-        role: new FormControl("", [Validators.required]),
-        birthDate: new FormControl("", [Validators.required]),
-        gender: new FormControl("", [Validators.required]),
-        address: new FormControl("", [Validators.required]),
-      });
-        
+    this.formEdit = this.fb.group({
+      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+      role: new FormControl('', [Validators.required]),
+      tel: new FormControl('', [Validators.required]),
+      gender: new FormControl('', [Validators.required]),
+      country: new FormControl('', [Validators.required]),
+    });
   }
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    let id = this.route.snapshot.params['id'];
+    if (id == 0) {
+      this.user = new User('', '', '', '', UserRole.Admin, '', 'male', '');
+    } else {
+    
+      this.userService.getById(id).then((user) => {
+        this.user = user;      
+        this.formEdit.setValue({
+          name: this.user.name,
+          email: this.user.email,
+          password: this.user.password,
+          country: this.user.country,
+          tel: this.user.tel,
+
+          role: this.user.role,
+          gender: this.user.gender,
+        });
+      });
+    }
+  }
 
   onCancel() {
     this.router.navigate(['/profile']);
@@ -70,13 +76,20 @@ export class ProfilEditComponent implements OnInit {
     if (this.user) {
       this.user.name = this.formEdit.controls['name'].value;
       this.user.email = this.formEdit.controls['email'].value;
-     this.user.password = this.formEdit.controls['password'].value;
-      this.user.birthDate = this.formEdit.controls['birthDate'].value;
+      this.user.password = this.formEdit.controls['password'].value;
+      this.user.tel = this.formEdit.controls['tel'].value;
       this.user.role = this.formEdit.controls['role'].value;
       this.user.gender = this.formEdit.controls['gender'].value;
-      this.user.address = this.formEdit.controls['address'].value;
-      this.userService.save(this.obj);
+      this.user.country = this.formEdit.controls['country'].value;
+
+     
+
+      this.userService.save(this.user);
       this.router.navigate(['/profile']);
     }
+    // if (this.formEdit.valid) {
+    //   console.warn(this.formEdit.value);
+    // }
+    //  this.router.navigate(['/profile']);
   }
 }

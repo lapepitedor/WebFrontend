@@ -33,9 +33,14 @@
         
       </li>
       <li class="border-top py-3">
-        <div class="fw-bold">Birthdate</div>
-        <div>{{ authService.active_user.birthDate | date : 'EEEE, dd MMMM yyyy' }}</div>
+        <div class="fw-bold">Tel</div>
+        <div>{{ authService.active_user.tel  }}</div>
         
+      </li>
+      <li class="border-top py-3">
+        <div class="fw-bold">Country</div>
+        <div>{{ authService.active_user.country }}</div>
+      
       </li>
     </ul>
   </div>
@@ -68,17 +73,14 @@
           <label for="password" class="form-label fw-bold">Password</label>
           <input id="password" class="form-control" type="password" placeholder="Your password" >
         </div>
-        <div class="mb-3">
-          <label for="birthdate" class="form-label fw-bold">Date of Birth</label>
-          <input id="birthdate" class="form-control" type="date" [max]="dateToday | date: 'yyyy-MM-dd'" [(ngModel)]="user.birthDate">
-        </div>
+        
         <div class="mb-3">
           <label for="gender" class="form-label fw-bold">gender</label>
           <input id="gender" class="form-control" type="text" placeholder="Your city" [(ngModel)]="user.gender">
         </div>
         <div class="mb-3">
-          <label for="address" class="form-label fw-bold">Address</label>
-          <input id="address" class="form-control" type="text" placeholder="Your country" [(ngModel)]="user.address">
+          <label for="country" class="form-label fw-bold">Country</label>
+          <input id="country" class="form-control" type="text" placeholder="country" [(ngModel)]="user.country">
         </div>
         <div class="mb-3">
           <label for="role" class="form-label fw-bold">Roles</label>
