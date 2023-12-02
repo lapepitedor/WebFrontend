@@ -1,9 +1,10 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { UserService } from './user.service';
-import { User } from '../Features/model/user';
+import { ProfilService } from './profil.service';
+import { Profil } from '../Features/model/Profil';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UserRole } from '../Features/model/UserRole';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -11,21 +12,14 @@ import { UserRole } from '../Features/model/UserRole';
 export class AuthentificationService {
   @Output() changed = new EventEmitter();
 
-  private is_logged_in: boolean = false;
-  private current_user = null;
+  is_logged_in: boolean = false;
+  current_profil = null;
 
-  active_user: User = new User(
-    '0',
-    '',
-    '',
-    '',
-    UserRole.Admin,
-    null,
-    'male',
-    ''
-  );
-
-  constructor(private service: AngularFireAuth, private router: Router) {}
+  constructor(
+    private service: AngularFireAuth,
+    private router: Router,
+    private db: AngularFirestore
+  ) {}
 
   async login(email: string, password: string) {
     try {
@@ -33,7 +27,7 @@ export class AuthentificationService {
         email,
         password
       );
-      this.current_user = result.user;
+      this.current_profil = result.user;
       this.changed.emit();
       return true;
     } catch (error) {
@@ -42,13 +36,26 @@ export class AuthentificationService {
     }
   }
 
-  register(user: User) {
+  register(user: Profil) {
     this.service
-      .createUserWithEmailAndPassword(user.email, user.password)
+      .createUserWithEmailAndPassword(user.Email, user.Password)
+      .then((result) => {
+        const additionalUserData = {
+          displayName: user.Name,
+          role: user.Role,
+          email: user.Email, // Enregistrement de l'email
+          // Autres champs personnalisés
+        };
+        return this.db
+          .collection('profil')
+          .doc(result.user.uid)
+          .set(additionalUserData);
+      })
       .then(() => {
         alert('Successfully Registered');
         this.router.navigate(['/login']);
       })
+
       .catch((err) => {
         // Gérer les erreurs ici, si nécessaire
         alert(err.message);
@@ -70,13 +77,13 @@ export class AuthentificationService {
       });
   }
 
-  isAdmin(): boolean {
-    return this.active_user !== null && this.active_user.role === 'admin';
-  }
+  // isAdmin(): boolean {
+  //   return this.current_profil !== null && this.current_profil.role === 'admin';
+  // }
 
-  isAgent(): boolean {
-    return this.active_user !== null && this.active_user.role === 'agent';
-  }
+  // isAgent(): boolean {
+  //   return this.current_profil !== null && this.current_profil.role === 'agent';
+  // }
 
   isLogged_in() {
     return (this.is_logged_in = true);

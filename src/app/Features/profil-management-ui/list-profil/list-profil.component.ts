@@ -2,9 +2,9 @@ import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/app/Features/model/user';
+import {Profil  } from 'src/app/Features/model/Profil';
 import { AuthentificationService } from 'src/app/shared/authentification.service';
-import { UserService } from 'src/app/shared/user.service';
+import { ProfilService } from 'src/app/shared/profil.service';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { UserRole } from '../../model/UserRole';
@@ -17,7 +17,7 @@ import { ProfilEditComponent } from '../profil-edit/profil-edit.component';
   styleUrls: ['./list-profil.component.css'],
 })
 export class ListProfilComponent implements OnInit {
-  obj: User | null = null;
+  obj: Profil | null = null;
   displayedColumns: string[] = [
     'index',
     'name',
@@ -29,68 +29,33 @@ export class ListProfilComponent implements OnInit {
     'gender',
     'actions',
   ];
-  profilListe: User[];
+  profilListe: Profil[];
   dataSource: any;
 
-  user: User = {
-    id: '0',
-    name: '',
-    email: '',
-    password: '',
-    role: UserRole.Admin,
-    tel: '',
-    gender: 'male',
-    country: '',
-  };
+ 
 
-  users: User[] = [];
+  profil: any;
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private service: UserService,
+    private service: ProfilService,
     public authservice: AuthentificationService
-  ) {
-    //this.loadProfilList();
-  }
-  
+  ) {}
+
   openAddEditProfil() {
     this.dialog.open(ProfilEditComponent);
-}
-
-  async loadProfilList() {
-    try {
-      const res = await this.service.getAll();
-      if (res && res.length > 0) {
-        // Vérifiez s'il y a des utilisateurs récupérés
-        if (!this.profilListe) {
-          // Si profilListe est vide, initialisez-le avec les données récupérées
-          this.profilListe = res;
-        } else {
-          // Sinon, ajoutez les utilisateurs récupérés à la liste existante
-          res.forEach((user) => {
-            // Vérifiez si l'utilisateur existe déjà dans la liste avant de l'ajouter
-            const existingUser = this.profilListe.find((u) => u.id === user.id);
-            if (!existingUser) {
-              this.profilListe.push(user);
-            }
-          });
-        }
-        this.dataSource = new MatTableDataSource<User>(this.profilListe);
-      }
-    } catch (error) {
-      console.error('Erreur lors du chargement des profils :', error);
-    }
   }
 
   ngOnInit(): void {
-    //   this.loadData();
-    this.loadProfilList();
-    this.service.changed.subscribe(() => {
-      console.log('Changements détectés !');
-      this.loadProfilList();
-   //   this.loadData();
+    this.loadData();
+  }
+
+  loadData() {
+    this.service.getAll().subscribe((data: any[]) => {
+      this.profilListe = data.map((item) => item.data); // Assurez-vous que la structure des données correspond à votre modèle Profil
+      this.dataSource = new MatTableDataSource<Profil>(this.profilListe);
     });
   }
 
@@ -106,17 +71,33 @@ export class ListProfilComponent implements OnInit {
   //     });
   // }
 
-  onNewProfil(): void {
-    this.router.navigate(['/newProfil']);
+  delete(id) {
+    let message = confirm('Are you sure you want to delete');
+    if (message == true) {
+      if (id) {
+    
+        this.service
+          .deleteProfil(id)
+          .then(() => {
+            // Action à effectuer après la suppression réussie
+            console.log('Utilisateur supprimé avec succès');
+          })
+          .catch((error) => {
+            // Gérer l'erreur ici si nécessaire
+            console.error(
+              "Erreur lors de la suppression de l'utilisateur :",
+              error
+            );
+          });
+      } else { console.error('Profile or profile ID is undefined/null');}
+      
+  
+    }
+   
   }
-  //
 
-  deleteUser(id: string) {
-    //this.service.deleteUser()
-  }
-
-  onEditUser(user: User) {
-    this.router.navigate(['profile', user.id]);
-    console.log(user.id);
+  onEditUser(user: Profil) {
+    this.router.navigate(['profile']);
+    // console.log(user.id);
   }
 }

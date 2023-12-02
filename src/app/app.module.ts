@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { LogoutComponent } from './Features/auth/components/logout/logout.component';
 import { PageNotFoundComponent } from './Features/profil-management-ui/page-not-found/page-not-found.component';
 import { Routes ,RouterModule} from '@angular/router';
-import { UserService } from './shared/user.service';
+import { ProfilService } from './shared/profil.service';
 import { RouteguardGuard } from './shared/routeguard.guard';
 import { AuthentificationService } from './shared/authentification.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

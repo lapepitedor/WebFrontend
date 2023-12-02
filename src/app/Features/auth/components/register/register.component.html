@@ -6,88 +6,91 @@
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
                         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                           
-                                
-                                    <div class=" form-outline mb-3">
-                                        <label class="form-label" for="name">FullName:</label>
-                                        <input type="text" id="name" class="form-control form-control-lg"
-                                            formControlName="name" placeholder="Your Full name ist ..."
-                                             autofocus required />
-                                    <div *ngIf="registerForm.controls.name.invalid && registerForm.controls.name.touched">Your FullName ist required.</div>
-                                    </div>
-                               
-            
-                                    <div class=" form-outline mt-3">
-                                        <label for="Address" class="form-label">Address:</label>
-                                        <input type="text" formControlName="address" class="form-control form-control-lg" id="Address"  
-                                        type="text"  placeholder="Your address is ..."  required/>
-                                        
-                                    </div>
 
-                               
-                                <div class=" form-outline mt-3">
 
-                                    <h6 class="mt-3 mb-2 pb-1">Gender: </h6>
+                            <div class=" form-outline mb-3">
+                                <label class="form-label" for="name">FullName:</label>
+                                <input type="text" id="name" class="form-control form-control-lg" formControlName="name"
+                                    placeholder="Your Full name ist ..." autofocus required />
+                                <div *ngIf="registerForm.controls.name.invalid && registerForm.controls.name.touched">
+                                    Your FullName ist required.</div>
+                            </div>
 
-                                    <div class=" form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" formControlName="genderOptions"
-                                            id="femaleGender" value="female" checked  required  />
-                                        <label class="form-check-label" for="femaleGender">Female</label>
-                                    </div>
+                            <div class="form-outline mt-3">
+                                <label class="form-label" for="emailAddress">Email:</label>
+                                <input type="email" formControlName="email" id="emailAddress"
+                                    class="form-control form-control-lg" placeholder="Your email  is ..." name="email"
+                                    required />
 
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" formControlName="genderOptions"
-                                            id="maleGender" value="male"  required/>
-                                        <label class="form-check-label" for="maleGender">Male</label>
-                                    </div>
+                            </div>
+                            <div class=" form-outline mt-3">
+                                <label for="country" class="form-label">Country:</label>
+                                <input type="text" formControlName="country" class="form-control form-control-lg"
+                                    id="country" type="text" placeholder="Your country is ..." required />
 
-                                </div>
-                            
+                            </div>
 
-                         
-                              
 
-                                    <div class="form-outline mt-3">
-                                        <label class="form-label" for="emailAddress">Email:</label>
-                                        <input type="email" formControlName="email" id="emailAddress" class="form-control form-control-lg" placeholder="Your email  is ..." 
-                                          name="email"   required/>
-                                 
+                            <div class=" form-outline mt-3">
+
+                                <h6 class="mt-3 mb-2 pb-1">Gender: </h6>
+
+                                <div class=" form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" formControlName="genderOptions"
+                                        id="femaleGender" value="female" checked required />
+                                    <label class="form-check-label" for="femaleGender">Female</label>
                                 </div>
 
-                                
-                                <div class="form-outline mt-3">
-                                    <label class="form-label" for="tel">Telefon:</label>
-                                    <input type="tel" formControlName="tel" id="tel" class="form-control form-control-lg"
-                                        placeholder="tel" name="tel" required />
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" formControlName="genderOptions"
+                                        id="maleGender" value="male" required />
+                                    <label class="form-check-label" for="maleGender">Male</label>
                                 </div>
 
-                                    <div class="form-outline mt-3">
-                                        <label class="form-label" for="password">Password:</label>
-                                        <input type="password" formControlName="password" id="password" class="form-control form-control-lg" placeholder="Your password" name="password"   required/>                                       
-                                    </div>
+                            </div>
 
-                              
-                          
+
+
+
+
+
+
+
+                            <div class="form-outline mt-3">
+                                <label class="form-label" for="tel">Telefon:</label>
+                                <input type="tel" formControlName="tel" id="tel" class="form-control form-control-lg"
+                                    placeholder="tel" name="tel" required />
+                            </div>
+
+                            <div class="form-outline mt-3">
+                                <label class="form-label" for="password">Password:</label>
+                                <input type="password" formControlName="password" id="password"
+                                    class="form-control form-control-lg" placeholder="Your password" name="password"
+                                    required />
+                            </div>
+
+
+
 
                             <div class="row">
-                                
-                                    <div class="col-12 mt-3">
-                                        <label class="form-label select-label">Choose option :</label>
-                                   
-                                    <select class="select form-control-lg" formControlName="role"  required>
+
+                                <div class="col-12 mt-3">
+                                    <label class="form-label select-label">Choose option :</label>
+
+                                    <select class="select form-control-lg" formControlName="role" required>
                                         <option value="1" disabled>Choose option</option>
                                         <option value="admin">Admin</option>
                                         <option value="agent">Agent</option>
                                         <option value="user">User</option>
                                     </select>
                                 </div>
-                               
+
                             </div>
-                            
+
                             <div class="mt-4 pt-2">
                                 <button class="btn btn-primary btn-lg" type="submit">Submit</button>
                             </div>
-                            </form>
+                        </form>
                     </div>
                 </div>
             </div>

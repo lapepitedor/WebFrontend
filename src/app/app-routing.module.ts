@@ -13,7 +13,7 @@ const routes: Routes = [
     loadChildren: () => import('./Features/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'profil-manager',
+    path: 'profil',
     canActivate: [RouteguardGuard],
     loadChildren: () =>
       import(

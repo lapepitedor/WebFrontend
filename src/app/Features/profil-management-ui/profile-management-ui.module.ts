@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfilEditComponent } from './profil-edit/profil-edit.component';
 
 
-import { UserService } from 'src/app/shared/user.service';
+import { ProfilService } from 'src/app/shared/profil.service';
 import { CreateProfilComponent } from './profil/create-profil/create-profil.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,6 +24,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
  import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
 
 
 
@@ -53,8 +54,9 @@ console.log('HelloProfil');
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatListModule,
   ],
-  providers: [UserService],
+  providers: [ProfilService],
 })
 export class ProfileManagementUiModule {}

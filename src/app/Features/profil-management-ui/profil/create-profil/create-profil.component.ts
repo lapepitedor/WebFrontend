@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'src/app/Features/model/user';
+import { Profil } from 'src/app/Features/model/Profil';
 import { UserRole } from 'src/app/Features/model/UserRole';
-import { UserService } from 'src/app/shared/user.service';
+import { ProfilService } from 'src/app/shared/profil.service';
 
 
 @Component({
@@ -14,19 +14,12 @@ import { UserService } from 'src/app/shared/user.service';
 export class CreateProfilComponent {
   hide = true;
   dateToday = new Date();
-  userInfo: User = {
-    id: '0',
-    name: '',
-    email: '',
-    password: '',
-    role: UserRole.Admin,
-    tel: '',
-    gender: 'male',
-    country: '',
-  };
+ // userInfo = new Profil();
+   
+ 
   email = new FormControl('', [Validators.required, Validators.email]);
 
-  constructor(private router: Router, private service: UserService) {}
+  constructor(private router: Router, private service: ProfilService) {}
 
   profilForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -47,21 +40,21 @@ export class CreateProfilComponent {
   }
 
   onSubmit() {
-    if (!this.profilForm.valid) {
-      console.log(this.profilForm);
-      return;
-    } else {
-      console.log(this.profilForm.value);
-    }
-    this.userInfo.name = this.profilForm.value.name;
-    this.userInfo.email = this.profilForm.value.email;
-    this.userInfo.password = this.profilForm.value.password;
-    this.userInfo.tel = this.profilForm.value.tel;
-    this.userInfo.role = this.profilForm.value.role;
-    this.userInfo.gender = this.profilForm.value.genderOptions;
-    this.userInfo.country = this.profilForm.value.country;
-    console.log(this.userInfo);
-    this.service.save(this.userInfo);
+    // if (!this.profilForm.valid) {
+    //   console.log(this.profilForm);
+    //   return;
+    // } else {
+    //   console.log(this.profilForm.value);
+    // }
+    // this.userInfo.Name = this.profilForm.value.name;
+    // this.userInfo.Email = this.profilForm.value.email;
+    // this.userInfo.Password = this.profilForm.value.password;
+    // this.userInfo.Tel = this.profilForm.value.tel;
+    // this.userInfo.Role = this.profilForm.value.role;
+    // this.userInfo.Gender = this.profilForm.value.genderOptions;
+    // this.userInfo.Country = this.profilForm.value.country;
+    // console.log(this.userInfo);
+    // this.service.saveProfil(this.userInfo);
 
     this.router.navigate(['/profile']);
   }

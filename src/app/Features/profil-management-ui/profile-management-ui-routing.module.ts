@@ -12,37 +12,34 @@ const routes: Routes = [
   {
     path: '',
     component: ProfileManagementUiComponent,
-    
 
     children: [
       {
-        path: '', component: DashboardComponent,
+        path: '',
+        component: DashboardComponent,
       },
       {
         path: 'dashboard',
         component: DashboardComponent,
-      
       },
       {
         path: 'newProfil',
-        component:CreateProfilComponent
+        component: CreateProfilComponent,
       },
 
       {
         path: 'profile',
         component: ListProfilComponent,
-    
       },
 
       {
         path: 'profile/:id',
         component: ProfilEditComponent,
-      
       },
-       {
-        path: '**', 
+      {
+        path: '**',
         component: PageNotFoundComponent,
-      }
+      },
     ],
   },
 ];

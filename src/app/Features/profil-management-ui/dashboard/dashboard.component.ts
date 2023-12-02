@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/Features/model/user';
+import { Profil } from 'src/app/Features/model/Profil';
 import { AuthentificationService } from 'src/app/shared/authentification.service';
 import { UserRole } from '../../model/UserRole';
 
@@ -10,44 +10,37 @@ import { UserRole } from '../../model/UserRole';
 })
 export class DashboardComponent implements OnInit {
   description = 'Dashboard';
- 
-  user: User = new User(
-    '0',
-    '',
-    '',
-    '',
-    UserRole.Admin,
-    null,
-    'male',
-    ''
-  );
+
+  profil: Profil;
 
   constructor(public authService: AuthentificationService) {}
+  // ngOnInit(): void {
+  //   if (this.authService.current_profil !== null) {
+  //     this.description = `Welcome ${this.authService.current_profil.name}`;
+  //   } else return;
+  // }
   ngOnInit(): void {
-    if (this.authService.active_user !== null) {
-      this.description = `Welcome ${this.authService.active_user.name}`;
-    } else return;
+    this.profil = this.authService.current_profil;
   }
-
 
   isFormValid() {
     return (
-      this.user.name &&
-      this.user.email &&
-      this.user.tel &&
-      this.user.gender &&
-      this.user.country
+      this.profil.Name &&
+      this.profil.Email &&
+      this.profil.Tel &&
+      this.profil.Gender &&
+      this.profil.Country
     );
   }
 
-  showDialogToEdit() {
-    this.user = { ...this.authService.active_user };
-    
-  }
+  // showDialogToEdit() {
+  //   this.user = { ...this.authService.active_user };
 
-  editUser() {
-    this.authService.active_user = { ...this.user };
-    
-    // Ajoutez ici la logique pour afficher un message de succès
-  }
+  // }
+
+  // editUser() {
+  //   this.authService.active_user = { ...this.user };
+  //   this.isEditDialogVisible = false;
+  //   // Ajoutez ici la logique pour afficher un message de succès
+  // }
 }
