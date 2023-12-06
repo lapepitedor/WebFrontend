@@ -32,7 +32,7 @@ export class ListProfilComponent implements OnInit {
   profilListe: Profil[];
   dataSource: any;
 
- 
+  user = new Profil('0', '', '', '', UserRole.Admin, 'female', '', '');
 
   profil: any;
 
@@ -54,6 +54,14 @@ export class ListProfilComponent implements OnInit {
 
   loadData() {
     this.service.getAll().subscribe((data: any[]) => {
+      console.log('Données récupérées depuis le service :', data);
+      console.log('Données récupérées depuis le service :', data["id"]);
+
+      data.forEach((item) => {
+        console.log('ID du document :', item.id); // Accès à l'ID du document
+        console.log('Données du document :', item.data); // Accès aux données du document
+      });
+      
       this.profilListe = data.map((item) => item.data); // Assurez-vous que la structure des données correspond à votre modèle Profil
       this.dataSource = new MatTableDataSource<Profil>(this.profilListe);
     });
@@ -75,12 +83,13 @@ export class ListProfilComponent implements OnInit {
     let message = confirm('Are you sure you want to delete');
     if (message == true) {
       if (id) {
-    
+         console.log('ID à supprimer : ', id);
         this.service
-          .deleteProfil(id)
-          .then(() => {
+          .getById(id)
+          .then((profil) => {
             // Action à effectuer après la suppression réussie
-            console.log('Utilisateur supprimé avec succès');
+            console.log('User details:', profil);
+             this.confirmDelete(profil);
           })
           .catch((error) => {
             // Gérer l'erreur ici si nécessaire
@@ -89,15 +98,26 @@ export class ListProfilComponent implements OnInit {
               error
             );
           });
-      } else { console.error('Profile or profile ID is undefined/null');}
-      
-  
+      } else {
+        console.error('Profile or profile ID is undefined/null');
+      }
     }
-   
   }
 
-  onEditUser(user: Profil) {
-    this.router.navigate(['profile']);
-    // console.log(user.id);
+  confirmDelete(profil: Profil) {
+    let message = confirm(`Are you sure you want to delete ${profil.Name}?`);
+    if (message === true) {
+      this.service.deleteProfil(profil.id)
+        .then(() => {
+          console.log('User deleted successfully');
+          // Actions après suppression réussie
+        })
+        .catch((error) => {
+          console.error("Error deleting user:", error);
+          // Gérer l'erreur si nécessaire
+        });
+    }
   }
+
+  
 }

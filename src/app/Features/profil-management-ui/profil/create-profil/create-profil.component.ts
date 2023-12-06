@@ -14,9 +14,8 @@ import { ProfilService } from 'src/app/shared/profil.service';
 export class CreateProfilComponent {
   hide = true;
   dateToday = new Date();
- // userInfo = new Profil();
-   
- 
+  userInfo = new Profil('0', '', '', '', UserRole.Admin, 'female', '', '');
+
   email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(private router: Router, private service: ProfilService) {}
@@ -40,21 +39,21 @@ export class CreateProfilComponent {
   }
 
   onSubmit() {
-    // if (!this.profilForm.valid) {
-    //   console.log(this.profilForm);
-    //   return;
-    // } else {
-    //   console.log(this.profilForm.value);
-    // }
-    // this.userInfo.Name = this.profilForm.value.name;
-    // this.userInfo.Email = this.profilForm.value.email;
-    // this.userInfo.Password = this.profilForm.value.password;
-    // this.userInfo.Tel = this.profilForm.value.tel;
-    // this.userInfo.Role = this.profilForm.value.role;
-    // this.userInfo.Gender = this.profilForm.value.genderOptions;
-    // this.userInfo.Country = this.profilForm.value.country;
-    // console.log(this.userInfo);
-    // this.service.saveProfil(this.userInfo);
+    if (!this.profilForm.valid) {
+      console.log(this.profilForm);
+      return;
+    } else {
+      console.log(this.profilForm.value);
+    }
+    this.userInfo.Name = this.profilForm.value.name;
+    this.userInfo.Email = this.profilForm.value.email;
+    this.userInfo.Password = this.profilForm.value.password;
+    this.userInfo.Tel = this.profilForm.value.tel;
+    this.userInfo.Role = this.profilForm.value.role;
+    this.userInfo.Gender = this.profilForm.value.genderOptions;
+    this.userInfo.Country = this.profilForm.value.country;
+    console.log(this.userInfo);
+    this.service.saveProfil(this.userInfo);
 
     this.router.navigate(['/profile']);
   }

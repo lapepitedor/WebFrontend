@@ -1,20 +1,21 @@
 
 
-<div mat-Dialog-title>Profil Form</div>
+<div mat-Dialog-title>
+    <h1>Profil Form</h1>
+</div>
 <form [formGroup]="formEdit" (ngSubmit)="onSubmit()">
 <div mat-dialog-content class="contain">
     <div class="row">
 
         <mat-form-field appearance="outline">
             <mat-label>FullName:</mat-label>
-            <input matInput type="text" class="form-control" formControlName="name" placeholder="Your Full name is ..."  required>
-
+            <input matInput type="text" formControlName="name" placeholder="Your Full name is ..."  required>
         </mat-form-field>
      </div>
         <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Email:</mat-label>
-                <input matInput type="email" class="form-control" formControlName="email" placeholder="Your email is ..." required>
+                <input matInput type="email"  formControlName="email" placeholder="Your email is ..." required>
                 <mat-error
                 *ngIf="email?.hasError('email')&& !email?.hasError('required')">
 Email is <strong>Required</strong>
@@ -24,7 +25,7 @@ Email is <strong>Required</strong>
         <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Password:</mat-label>
-                <input matInput type="password" class="form-control" formControlName="password" placeholder="Your password"
+                <input matInput type="password"  formControlName="password" placeholder="Your password"
                     [type]="hide ? 'password' : 'text'" required>
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                     [attr.aria-pressed]="hide">
@@ -36,7 +37,7 @@ Email is <strong>Required</strong>
         <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Phone number</mat-label>
-                <input matInput class="form-control" formControlName="tel" required>
+                <input matInput  formControlName="tel" required>
                 <mat-icon matSuffix>phone</mat-icon>
                 <mat-hint>Include area code</mat-hint>
                 <mat-error *ngIf="tel?.hasError('required')">
@@ -48,7 +49,7 @@ Email is <strong>Required</strong>
         <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Country:</mat-label>
-                <input matInput type="text" class="form-control" formControlName="country" required>
+                <input matInput type="text"  formControlName="country" required>
             </mat-form-field>
         </div>
 
@@ -57,7 +58,7 @@ Email is <strong>Required</strong>
         <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Select a Role:</mat-label>
-                <mat-select matNativeControl required class="form-control" formControlName="role" required>
+                <mat-select matNativeControl required  formControlName="role" required>
 
                     <mat-option>--</mat-option>
                     <mat-option value="admin">Admin</mat-option>
@@ -71,7 +72,7 @@ Email is <strong>Required</strong>
         <div class="row">
             
             <mat-label><b>Gender</b></mat-label>
-            <mat-radio-group class="form-control" formControlName="gender" aria-label="Select an option">
+            <mat-radio-group  formControlName="gender" aria-label="Select an option">
                 <mat-radio-button value="female">Female</mat-radio-button>
                 <mat-radio-button value="male">Male</mat-radio-button>
             </mat-radio-group>

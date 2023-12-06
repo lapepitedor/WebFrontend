@@ -23,6 +23,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { MatTableModule } from '@angular/material/table';
 
 
+
 const routes: Routes = [
   
 ];
@@ -38,7 +39,6 @@ const firebaseConfig = {
 @NgModule({
   declarations: [AppComponent],
   imports: [
-   
     BrowserModule,
     RouterModule.forRoot(routes),
     AuthModule,
@@ -50,6 +50,7 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+   
   ],
   exports: [RouterModule],
   providers: [RouteguardGuard, AuthentificationService],

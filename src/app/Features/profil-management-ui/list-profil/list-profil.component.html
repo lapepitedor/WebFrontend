@@ -29,7 +29,7 @@
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name </th>
-          <td mat-cell *matCellDef="let profil"> {{ profil.Name }} </td>
+          <td mat-cell *matCellDef="let profil"> {{ profil.id }} </td>
         </ng-container>
       
         <!-- Email Column -->
@@ -76,7 +76,7 @@
              >
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" title="Delete" (click)="delete(profil.id)" >
+            <button mat-icon-button color="warn" title="Delete" (click)="confirmDelete(profil.id)" >
               <mat-icon>delete</mat-icon>
             </button>
           </td>

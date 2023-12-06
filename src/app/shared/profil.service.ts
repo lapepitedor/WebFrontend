@@ -2,7 +2,9 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Profil } from '../Features/model/Profil';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Route } from '@angular/router';
-import { map } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { UserRole } from '../Features/model/UserRole';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +14,7 @@ export class ProfilService {
 
   profils: Profil[] = [];
 
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, private snackBar: MatSnackBar) {}
 
   getAll() {
     return this.db
@@ -64,61 +66,81 @@ export class ProfilService {
     }
   }
 
-  // async getById(id: string): Promise<Profil | null> {
-  //   try {
-  //     const docRef = this.db.collection('users').doc(id);
-  //     const doc = await docRef.get().toPromise();
+  async getById(id: string): Promise<Profil | null> {
+    try {
+      const docRef = this.db.collection('users').doc(id);
+      const doc = await docRef.get().toPromise();
 
-  //     if (doc.exists) {
-  //       const data = doc.data();
-  //       const obj = new Profil(
-  //         doc.id,
-  //         data['name'],
-  //         data['email'],
-  //         data['password'],
-  //         data['role'],
-  //         data['tel'],
-  //         data['gender'],
-  //         data['country']
-  //       );
-  //       return obj;
-  //     } else {
-  //       return null; // Document non trouvé
-  //     }
-  //   } catch (error) {
-  //     console.error("Erreur lors de la récupération de l'utilisateur:", error);
-  //     return null;
-  //   }
-  // }
-
-  getById(id: string) {
-    return new Promise<Profil>((resolve) => {
-      this.db
-        .collection('profils')
-        .doc(id)
-        .get()
-        .subscribe(function (doc) {
-          let data = doc.data();
-          let obj = new Profil(
-            doc.id,
-            data['Name'],
-            data['Email'],
-            data['Password'],
-            data['Role'],
-            data['Gender'] as 'female' | 'male',
-            data['Tel'],
-            data['Country']
-          );
-          resolve(obj);
-          console.log(id);
-        });
-    })
-    
+      if (doc.exists) {
+        const data = doc.data();
+        const obj = new Profil(
+          doc.id,
+          data['name'],
+          data['email'],
+          data['password'],
+          data['role'],
+          data['tel'],
+          data['gender'],
+          data['country']
+        );
+        return obj;
+      } else {
+        return null; // Document non trouvé
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération de l'utilisateur:", error);
+      return null;
+    }
   }
 
-  updateProfil(profil: Profil, id: string): Promise<void> {
-    return this.db.doc(id).update(profil);
-   }
+  // getById(id: string) {
+  //   return new Promise<Profil>((resolve) => {
+  //     this.db
+  //       .collection('profils')
+  //       .doc(id)
+  //       .get()
+  //       .subscribe(function (doc) {
+  //         let data = doc.data();
+  //         let obj = new Profil(
+  //           doc.id,
+  //           data['Name'],
+  //           data['Email'],
+  //           data['Password'],
+  //           data['Role'],
+  //           data['Gender'] as 'female' | 'male',
+  //           data['Tel'],
+  //           data['Country']
+  //         );
+  //         resolve(obj);
+  //         console.log(id);
+  //       });
+  //   })
+
+  // }
+
+  updateProfil(id: string, profil: Profil) {
+    // return this.db.doc(id).update(profil);
+    let data = {
+      Name: profil.Name,
+      Email: profil.Email,
+      Password: profil.Password,
+      Tel: profil.Tel,
+      Country: profil.Country,
+      Gender: profil.Gender,
+      Role: profil.Role,
+    };
+    this.db
+      .collection('profils')
+      .doc(id)
+      .set(data)
+      .then(() => {
+        this.snackBar.open('Save with Success !', 'Close', {
+          duration: 3000, // Durée en millisecondes
+          verticalPosition: 'top', // Position verticale du snack bar
+          horizontalPosition: 'end', // Position horizontale du snack bar);
+        });
+      });
+  }
 
   deleteProfil(id: string): Promise<void> {
     return new Promise<void>((resolve) => {
@@ -140,27 +162,87 @@ export class ProfilService {
     });
   }
 
-  // getById(id: string) {
-  //   return new Promise<User>((resolve) => {
+  // getById(id: string): Promise<Profil> {
+  //   return new Promise<Profil>((resolve) => {
   //     this.db
-  //       .collection('users')
+  //       .collection('profils')
   //       .doc(id)
   //       .get()
-  //       .subscribe(function (doc) {
+  //       .subscribe((doc) => {
   //         let data = doc.data();
-  //         let obj = new User(
+  //         let obj = new Profil(
   //           doc.id,
-  //           data['name'],
-  //           data['email'],
-  //           data['password'],
-  //           data['tel'],
-  //           data['country'],
-  //           data['gender'],
-  //           data['role']
+  //           data['Name'],
+  //           data['Email'],
+  //           data['Password'],
+  //           data['Tel'],
+  //           data['Country'],
+  //           data['Gender'],
+  //           data['Role']
   //         );
   //         resolve(obj);
+  //         console.log(obj);
   //       });
   //   });
   // }
-  
+
+  retrieve(id: string) {
+    debugger;
+
+    return new Promise<Profil>((resolve) => {
+      this.db
+        .collection('profils')
+        .doc(id)
+        .get()
+        .subscribe(function (doc) {
+          let data = doc.data();
+          let obj = new Profil(
+            doc.id,
+            data['Name'],
+            data['Email'],
+            data['Password'],
+            data['Role'],
+            data['Gender'],
+            data['Tel'],
+            data['Country']
+          );
+          // obj.id = doc.id;
+          // obj.Name = data["Name"];
+          // obj.Email = data['Email'];
+          // obj.Password = data['Password'];
+          // obj.Tel = data['Tel'];
+          // obj.Country = data['Country'];
+          // obj.Gender = data['Gender'];
+          // obj.Role = data['Role'];
+          resolve(obj);
+        });
+    });
+  }
+
+  getUserById(userId: string): Observable<Profil> {
+    return this.db
+      .collection('profils')
+      .doc(userId)
+      .snapshotChanges()
+      .pipe(
+        map((doc) => {
+          const data = doc.payload.data() as Profil; // Annahme: Firestore-Daten entsprechen Profil-Typ
+          const id = doc.payload.id;
+          // return { id, ...data };
+          return new Profil(
+            id,
+            data.Name, // Assurez-vous que le champ 'Name' correspond à la propriété 'Name' de Profil
+            data.Email,
+            data.Password,
+            data.Role,
+            data.Gender,
+            data.Tel,
+            data.Country
+          );
+        })
+      );
+  }
+  // getData() {
+  //   const collectionInstance = collection(this.db, 'profils');
+  // }
 }

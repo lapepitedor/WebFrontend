@@ -30,6 +30,7 @@ export class ProfilEditComponent implements OnInit {
     private router: Router,
     private service: ProfilService
   ) {
+    
     this.formEdit = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -64,22 +65,33 @@ export class ProfilEditComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.id = this.route.snapshot.params['id'];
 
     if (this.id == '0') {
       this.obj = new Profil('0', '', '', '', UserRole.Admin, 'female', '', '');
     } else {
-      this.service.getById(this.id).then((obj) => {
-        this.obj = obj;
-        this.formEdit.setValue({
-          Name: this.formEdit.value.name,
-          Email: this.formEdit.value.email,
-          Password: this.formEdit.value.password,
-          Tel: this.formEdit.value.tel,
-          Role: this.formEdit.value.role,
-          Gender: this.formEdit.value.gender,
-          Country: this.formEdit.value.country,
-        });
+      // this.service
+      //   .getUserById(this.id)
+      //   .toPromise()
+      //   .then((data: Profil) => {
+      //     this.obj = data;
+      //     this.formEdit.setValue({
+      //       Name: this.formEdit.value.name,
+      //       Email: this.formEdit.value.email,
+      //       Password: this.formEdit.value.password,
+      //       Tel: this.formEdit.value.tel,
+      //       Role: this.formEdit.value.role,
+      //       Gender: this.formEdit.value.gender,
+      //       Country: this.formEdit.value.country,
+      //     });
+      //     console.log(this.formEdit);
+      //   });
+
+      this.service.getUserById(this.id).subscribe((data) => {
+        console.log(data.id);
+        console.log(data.Name); // Vérifiez d'autres propriétés récupérées si nécessaire
+          
       });
     }
   }
@@ -100,7 +112,10 @@ export class ProfilEditComponent implements OnInit {
     this.obj.Role = this.formEdit.controls['role'].value;
     this.obj.Gender = this.formEdit.controls['gender'].value;
     this.obj.Country = this.formEdit.controls['country'].value;
-    this.service.saveProfil(this.obj);
+    this.service.updateProfil(this.id,this.obj);
+   // this.service.saveProfil(this.obj);
     this.router.navigate(['/profile']);
   }
+
+ 
 }
