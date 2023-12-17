@@ -24,6 +24,9 @@ import { MatTableModule } from '@angular/material/table';
 
 
 
+
+
+
 const routes: Routes = [
   
 ];
@@ -37,7 +40,7 @@ const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),

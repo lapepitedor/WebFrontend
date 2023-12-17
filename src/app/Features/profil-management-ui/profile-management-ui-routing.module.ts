@@ -28,7 +28,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'profile',
+        path: 'list-profil',
         component: ListProfilComponent,
       },
 

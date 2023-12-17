@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AuthentificationService } from 'src/app/shared/authentification.service';
 import { ProfilService} from 'src/app/shared/profil.service';
-
 import {Profil } from 'src/app/Features/model/Profil';
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';

@@ -10,6 +10,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UserRole } from '../../model/UserRole';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfilEditComponent } from '../profil-edit/profil-edit.component';
+import { DeleteProfilComponent } from '../profil/delete-profil/delete-profil.component';
+import { UpdateComponent } from '../profil/update-profil/update.component';
 
 @Component({
   selector: 'app-list-profil',
@@ -29,9 +31,8 @@ export class ListProfilComponent implements OnInit {
     'gender',
     'actions',
   ];
-  profilListe: Profil[];
-  dataSource: any;
-
+  profilList: Profil[];
+  dataSource: MatTableDataSource<Profil>;
   user = new Profil('0', '', '', '', UserRole.Admin, 'female', '', '');
 
   profil: any;
@@ -44,29 +45,73 @@ export class ListProfilComponent implements OnInit {
     public authservice: AuthentificationService
   ) {}
 
-  openAddEditProfil() {
-    this.dialog.open(ProfilEditComponent);
-  }
 
   ngOnInit(): void {
     this.loadData();
   }
 
   loadData() {
-    this.service.getAll().subscribe((data: any[]) => {
-      console.log('Données récupérées depuis le service :', data);
-      console.log('Données récupérées depuis le service :', data["id"]);
+    // this.service.getAll().subscribe((data: any[]) => {
+    //   console.log('Données récupérées depuis le service :', data);
+    //   console.log('Données récupérées depuis le service :', data['id']);
 
-      data.forEach((item) => {
-        console.log('ID du document :', item.id); // Accès à l'ID du document
-        console.log('Données du document :', item.data); // Accès aux données du document
-      });
+    //   this.profilListe = data.map((item) => item.data); // Assurez-vous que la structure des données correspond à votre modèle Profil
+    //   this.dataSource = new MatTableDataSource<Profil>(this.profilListe);
+    // });
+    // this.service.getProfiles().subscribe((data) => {
+    //   console.log('Données récupérées depuis le service :', data);
+    //      console.log('Données récupérées depuis le service :', data['id']);
+    //   const profils = data.map((e) => {
+    //     return {
+    //       id: e.payload.doc.id,
+    //       ...(e.payload.doc.data() as Profil),
+    //     } as Profil;
+    //   });
+    this.service.getProfiles().then((data) => {
       
-      this.profilListe = data.map((item) => item.data); // Assurez-vous que la structure des données correspond à votre modèle Profil
-      this.dataSource = new MatTableDataSource<Profil>(this.profilListe);
+      this.profilList = data;
+      console.log(data);
+      this.dataSource = new MatTableDataSource(this.profilList);
+    });
+
+  }
+
+  addProfil() {
+    this.router.navigate(['/newProfil']);
+  }
+
+  OpenEditDialog(profil:Profil):void {
+    const dialogRef = this.dialog.open(UpdateComponent, {
+      width: '250px',
+     data: { data: profil },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Logique de mise à jour de l'utilisateur
+         this.service.updateProfil(result).then(() => {
+           this.loadData();
+           // Recharger les utilisateurs après la suppression
+         });
+      }
     });
   }
 
+  openDeleteDialog(id: string) { 
+    const dialogRef = this.dialog.open(DeleteProfilComponent, {
+      width: '250px',
+      data: id,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.service.deleteProfil(result).then(() => {
+          this.loadData(); // Recharger les utilisateurs après la suppression
+        });
+      }
+    });
+  }
+  
   // loadData() {
   //   this.service
   //     .getAll()
@@ -79,45 +124,9 @@ export class ListProfilComponent implements OnInit {
   //     });
   // }
 
-  delete(id) {
-    let message = confirm('Are you sure you want to delete');
-    if (message == true) {
-      if (id) {
-         console.log('ID à supprimer : ', id);
-        this.service
-          .getById(id)
-          .then((profil) => {
-            // Action à effectuer après la suppression réussie
-            console.log('User details:', profil);
-             this.confirmDelete(profil);
-          })
-          .catch((error) => {
-            // Gérer l'erreur ici si nécessaire
-            console.error(
-              "Erreur lors de la suppression de l'utilisateur :",
-              error
-            );
-          });
-      } else {
-        console.error('Profile or profile ID is undefined/null');
-      }
-    }
-  }
 
-  confirmDelete(profil: Profil) {
-    let message = confirm(`Are you sure you want to delete ${profil.Name}?`);
-    if (message === true) {
-      this.service.deleteProfil(profil.id)
-        .then(() => {
-          console.log('User deleted successfully');
-          // Actions après suppression réussie
-        })
-        .catch((error) => {
-          console.error("Error deleting user:", error);
-          // Gérer l'erreur si nécessaire
-        });
-    }
-  }
 
-  
+  confirmDelete(id) {
+    this.service.deleteProfil(id);
+  }
 }

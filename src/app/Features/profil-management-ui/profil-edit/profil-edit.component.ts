@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -10,7 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Profil } from 'src/app/Features/model/Profil';
 import { ProfilService } from 'src/app/shared/profil.service';
 import { UserRole } from '../../model/UserRole';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-profil-edit',
@@ -19,7 +20,6 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ProfilEditComponent implements OnInit {
   hide = true;
-  id: string = '';
   formEdit: FormGroup;
   obj: Profil = null;
 
@@ -28,9 +28,9 @@ export class ProfilEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: ProfilService
+    private service: ProfilService,
+    @Inject(MAT_DIALOG_DATA) public data: Profil
   ) {
-    
     this.formEdit = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -65,33 +65,33 @@ export class ProfilEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    let id = this.route.snapshot.params['id'];
+    console.log(id);
 
-    this.id = this.route.snapshot.params['id'];
-
-    if (this.id == '0') {
+    if (id == '0') {
       this.obj = new Profil('0', '', '', '', UserRole.Admin, 'female', '', '');
     } else {
-      // this.service
-      //   .getUserById(this.id)
-      //   .toPromise()
-      //   .then((data: Profil) => {
-      //     this.obj = data;
-      //     this.formEdit.setValue({
-      //       Name: this.formEdit.value.name,
-      //       Email: this.formEdit.value.email,
-      //       Password: this.formEdit.value.password,
-      //       Tel: this.formEdit.value.tel,
-      //       Role: this.formEdit.value.role,
-      //       Gender: this.formEdit.value.gender,
-      //       Country: this.formEdit.value.country,
-      //     });
-      //     console.log(this.formEdit);
-      //   });
+     
+      
+      this.service.getById(id).then((obj) => {
+        this.obj = obj;
+        this.formEdit.setValue({
+          name: this.formEdit.value.name,
+          email: this.formEdit.value.email,
+          password: this.formEdit.value.password,
+          tel: this.formEdit.value.tel,
+          role: this.formEdit.value.role,
+          gender: this.formEdit.value.gender,
+          country: this.formEdit.value.country,
 
-      this.service.getUserById(this.id).subscribe((data) => {
-        console.log(data.id);
-        console.log(data.Name); // Vérifiez d'autres propriétés récupérées si nécessaire
-          
+          //   "name": this.obj.Name,
+          //   "email": this.obj.Email,
+          //   "password": this.obj.Password,
+          //   "tel": this.obj.Tel,
+          //   "role": this.obj.Role,
+          //  "gender": this.obj.Gender,
+          //   "country": this.obj.Country,
+        });
       });
     }
   }
@@ -105,17 +105,18 @@ export class ProfilEditComponent implements OnInit {
       console.log('Formulaire invalide:', this.formEdit);
       return;
     }
-    this.obj.Name = this.formEdit.controls['name'].value;
-    this.obj.Email = this.formEdit.controls['email'].value;
-    this.obj.Password = this.formEdit.controls['password'].value;
-    this.obj.Tel = this.formEdit.controls['tel'].value;
-    this.obj.Role = this.formEdit.controls['role'].value;
-    this.obj.Gender = this.formEdit.controls['gender'].value;
-    this.obj.Country = this.formEdit.controls['country'].value;
-    this.service.updateProfil(this.id,this.obj);
-   // this.service.saveProfil(this.obj);
+
+    // let data = {
+    //   Name: this.formEdit.controls['name'].value,
+    //   Email: this.formEdit.controls['email'].value,
+    //   Gender: this.formEdit.controls['gender'].value,
+    //   Country: this.formEdit.controls['country'].value,
+    //   Password: this.formEdit.controls['password'].value,
+    //   Tel: this.formEdit.controls['tel'].value,
+    //   Role: this.formEdit.controls['role'].value,
+    // };
+    // this.service.saveProfil(data);
+    // //  this.formEdit.reset();
     this.router.navigate(['/profile']);
   }
-
- 
 }
