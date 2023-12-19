@@ -67,7 +67,7 @@
     </mat-card-content>
 
     <mat-dialog-actions>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!updateForm.valid">Save</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!updateForm.valid">Save</button>
         <button mat-raised-button color="warn" (click)="onCancel()">cancel</button>
     </mat-dialog-actions>
 </mat-card>

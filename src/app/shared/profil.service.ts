@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProfilService {
   @Output() changed = new EventEmitter();
+  pathCollRef: string = 'profils';
 
   profils: Profil[] = [];
 
@@ -32,28 +33,38 @@ export class ProfilService {
   }
 
   getProfiles() {
-    return new Promise<Profil[]>((resolve) => {
-      let collection = this.db.collection('profils');
-      collection.get().subscribe(function (snapshot) {
-        let profils: Profil[] = [];
-        snapshot.forEach(function (doc) {
-          let data = doc.data();
-          let obj = new Profil(
-            doc.id,
-            data['Name'],
-            data['Email'],
-            data['Password'],
-            data['UserRole'],
-            data['Gender'],
-            data['Tel'],
-            data['Country']
-          );
-          profils.push(obj);
+    // return new Promise<Profil[]>((resolve) => {
+    //   let collection = this.db.collection(this.pathCollRef);
+    //   collection.get().subscribe(function (snapshot) {
+    //     let profils: Profil[] = [];
+    //     snapshot.forEach(function (doc) {
+    //       let data = doc.data();
+    //       let obj = new Profil(
+    //         doc.id,
+    //         data['Name'],
+    //         data['Email'],
+    //         data['Password'],
+    //         data['UserRole'],
+    //         data['Gender'],
+    //         data['Tel'],
+    //         data['Country']
+    //       );
+    //       profils.push(obj);
+    //     });
+    //     resolve(profils);
+    //     console.log(profils);
+    //   });
+    // });
+    return this.db.collection(this.pathCollRef).snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(action => {
+          const data = action.payload.doc.data();
+          const id = action.payload.doc.id;
+          data['id'] = id;
+          return data;
         });
-        resolve(profils);
-        console.log(profils);
-      });
-    });
+      })
+    );;
   }
 
   saveProfil(profil: Profil) {
@@ -68,14 +79,8 @@ export class ProfilService {
     //         return data;
     //       })
     //     )
-    // );    
-    debugger
-    if (profil.id) {
-      return this.db.collection('profils').doc(profil.id).set({ ...profil });
-    }
-    else {
-      return this.db.collection('profils').add({ ...profil }); 
-    }
+    // );
+    return this.db.collection(this.pathCollRef).doc(profil.id).set({ ...profil });
   }
 
   // saveProfil(profil: Profil) {
@@ -124,11 +129,13 @@ export class ProfilService {
   }
 
   getProfils() {
-    return this.db.collection('profils').snapshotChanges();
+    debugger
+    return this.db.collection(this.pathCollRef).snapshotChanges();
   }
 
   updateProfil(profil: Profil) {
-    return this.db.collection('profils').doc(profil.id).update(profil);
+    debugger
+    return this.db.collection(this.pathCollRef).doc(profil.id).update(profil['data']);
   }
 
   deleteProfil(id: string) {

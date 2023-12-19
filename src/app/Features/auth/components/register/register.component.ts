@@ -42,13 +42,13 @@ export class RegisterComponent {
     } else {
       console.log(this.registerForm.value);
     }
-    this.userInfo.Name = this.registerForm.value.name;
-    this.userInfo.Email = this.registerForm.value.email;
-    this.userInfo.Password = this.registerForm.value.password;
-    this.userInfo.Tel = this.registerForm.value.tel;
-    this.userInfo.Role = this.registerForm.value.role;
-    this.userInfo.Gender = this.registerForm.value.genderOptions;
-    this.userInfo.Country = this.registerForm.value.country;
+    this.userInfo.name = this.registerForm.value.name;
+    this.userInfo.email = this.registerForm.value.email;
+    this.userInfo.password = this.registerForm.value.password;
+    this.userInfo.tel = this.registerForm.value.tel;
+    this.userInfo.role = this.registerForm.value.role;
+    this.userInfo.gender = this.registerForm.value.genderOptions;
+    this.userInfo.country = this.registerForm.value.country;
     console.log(this.userInfo);
     this.authservice.register(this.userInfo);
 

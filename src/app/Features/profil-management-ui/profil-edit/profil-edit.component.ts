@@ -73,26 +73,26 @@ export class ProfilEditComponent implements OnInit {
     } else {
      
       
-      this.service.getById(id).then((obj) => {
-        this.obj = obj;
-        this.formEdit.setValue({
-          name: this.formEdit.value.name,
-          email: this.formEdit.value.email,
-          password: this.formEdit.value.password,
-          tel: this.formEdit.value.tel,
-          role: this.formEdit.value.role,
-          gender: this.formEdit.value.gender,
-          country: this.formEdit.value.country,
+      // this.service.getById(id).then((obj) => {
+      //   this.obj = obj;
+      //   this.formEdit.setValue({
+      //     name: this.formEdit.value.name,
+      //     email: this.formEdit.value.email,
+      //     password: this.formEdit.value.password,
+      //     tel: this.formEdit.value.tel,
+      //     role: this.formEdit.value.role,
+      //     gender: this.formEdit.value.gender,
+      //     country: this.formEdit.value.country,
 
-          //   "name": this.obj.Name,
-          //   "email": this.obj.Email,
-          //   "password": this.obj.Password,
-          //   "tel": this.obj.Tel,
-          //   "role": this.obj.Role,
-          //  "gender": this.obj.Gender,
-          //   "country": this.obj.Country,
-        });
-      });
+      //     //   "name": this.obj.Name,
+      //     //   "email": this.obj.Email,
+      //     //   "password": this.obj.Password,
+      //     //   "tel": this.obj.Tel,
+      //     //   "role": this.obj.Role,
+      //     //  "gender": this.obj.Gender,
+      //     //   "country": this.obj.Country,
+      //   });
+      // });
     }
   }
 

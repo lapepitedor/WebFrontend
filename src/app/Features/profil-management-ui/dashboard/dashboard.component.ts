@@ -25,11 +25,11 @@ export class DashboardComponent implements OnInit {
 
   isFormValid() {
     return (
-      this.profil.Name &&
-      this.profil.Email &&
-      this.profil.Tel &&
-      this.profil.Gender &&
-      this.profil.Country
+      this.profil.name &&
+      this.profil.email &&
+      this.profil.tel &&
+      this.profil.gender &&
+      this.profil.country
     );
   }
 

@@ -22,13 +22,13 @@ export class UpdateComponent {
     @Inject(MAT_DIALOG_DATA) public profil: Profil
   ) {
     this.updateForm = this.fb.group({
-      name: [profil.Name, [Validators.required, Validators.minLength(4)]],
-      email: [profil.Email, [Validators.required, Validators.email]],
-      password: [profil.Password, [Validators.required]],
-      role: [profil.Role, [Validators.required]],
-      tel: [profil.Tel, [Validators.required]],
-      gender: [profil.Gender, [Validators.required]],
-      country: [profil.Country, [Validators.required]],
+      name: [profil.name, [Validators.required, Validators.minLength(4)]],
+      email: [profil.email, [Validators.required, Validators.email]],
+      password: [profil.password, [Validators.required]],
+      role: [profil.role, [Validators.required]],
+      tel: [profil.tel, [Validators.required]],
+      gender: [profil.gender, [Validators.required]],
+      country: [profil.country, [Validators.required]],
     });
   }
 
@@ -56,7 +56,8 @@ export class UpdateComponent {
   }
 
   onSubmit() {
-     this.dialogRef.close(this.profil);
+    const data = this.updateForm.getRawValue();
+     this.dialogRef.close({data:data, id: this.profil.id});
   }
 
   

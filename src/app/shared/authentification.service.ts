@@ -38,12 +38,12 @@ export class AuthentificationService {
 
   register(user: Profil) {
     this.service
-      .createUserWithEmailAndPassword(user.Email, user.Password)
+      .createUserWithEmailAndPassword(user.email, user.password)
       .then((result) => {
         const additionalUserData = {
-          displayName: user.Name,
-          role: user.Role,
-          email: user.Email, // Enregistrement de l'email
+          displayName: user.name,
+          role: user.role,
+          email: user.email, // Enregistrement de l'email
           // Autres champs personnalisés
         };
         return this.db

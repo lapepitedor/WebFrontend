@@ -67,12 +67,11 @@ export class ListProfilComponent implements OnInit {
     //       ...(e.payload.doc.data() as Profil),
     //     } as Profil;
     //   });
-    this.service.getProfiles().then((data) => {
-      
+    this.service.getProfiles().subscribe((data:any[])=>{
       this.profilList = data;
       console.log(data);
       this.dataSource = new MatTableDataSource(this.profilList);
-    });
+    })
 
   }
 
@@ -82,8 +81,7 @@ export class ListProfilComponent implements OnInit {
 
   OpenEditDialog(profil:Profil):void {
     const dialogRef = this.dialog.open(UpdateComponent, {
-      width: '250px',
-     data: { data: profil },
+     data: profil,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -99,7 +97,6 @@ export class ListProfilComponent implements OnInit {
 
   openDeleteDialog(id: string) { 
     const dialogRef = this.dialog.open(DeleteProfilComponent, {
-      width: '250px',
       data: id,
     });
 
