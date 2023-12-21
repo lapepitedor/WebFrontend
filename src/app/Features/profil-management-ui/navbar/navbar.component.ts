@@ -7,12 +7,12 @@ import { AuthentificationService } from 'src/app/shared/authentification.service
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  is_logged_in: boolean;
+
 
   constructor(private service: AuthentificationService) {
-    this.is_logged_in = this.service.isLogged_in();
-    this.service.changed.subscribe(() => {
-      this.is_logged_in = this.service.isLogged_in();
-    });
+   
+  }
+  logout() {
+    this.service.logout();
   }
 }

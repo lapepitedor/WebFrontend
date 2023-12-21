@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Profil } from 'src/app/Features/model/Profil';
 import { AuthentificationService } from 'src/app/shared/authentification.service';
 import { UserRole } from '../../model/UserRole';
+import { ProfilService } from 'src/app/shared/profil.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,36 +13,45 @@ import { UserRole } from '../../model/UserRole';
 export class DashboardComponent implements OnInit {
   description = 'Dashboard';
 
-  profil: Profil;
+  profil: Profil = null;
+  profileCount: number = 0;
+  femaleCount: number = 0;
+  maleCount: number = 0;
 
-  constructor(public authService: AuthentificationService) {}
-  // ngOnInit(): void {
-  //   if (this.authService.current_profil !== null) {
-  //     this.description = `Welcome ${this.authService.current_profil.name}`;
-  //   } else return;
-  // }
+  constructor(
+    public authService: AuthentificationService,
+    private service: ProfilService,private afAuth: AngularFireAuth
+  ) {}
+
   ngOnInit(): void {
-    this.profil = this.authService.current_profil;
+
+     this.getProfilDetail();
+
+    this.service.getProfileCount().subscribe((count) => {
+      this.profileCount = count;
+    });
+
+     this.service.getFemaleProfileCount().subscribe(count => {
+       this.femaleCount = count;
+       console.log(count)
+    });
+    this.service.getMaleProfileCount().subscribe(count => {
+      this.maleCount = count;
+    });
+
+   
   }
-
-  isFormValid() {
-    return (
-      this.profil.name &&
-      this.profil.email &&
-      this.profil.tel &&
-      this.profil.gender &&
-      this.profil.country
-    );
+  
+  getProfilDetail() {
+     this.afAuth.authState.subscribe(user => {
+      if (user) {
+        const userId = user.uid;
+        this.service.getProfilDetail(userId).subscribe(profile => {
+          this.profil = profile;
+          console.log(profile);
+        });
+      }
+    });
   }
-
-  // showDialogToEdit() {
-  //   this.user = { ...this.authService.active_user };
-
-  // }
-
-  // editUser() {
-  //   this.authService.active_user = { ...this.user };
-  //   this.isEditDialogVisible = false;
-  //   // Ajoutez ici la logique pour afficher un message de succès
-  // }
+   
 }

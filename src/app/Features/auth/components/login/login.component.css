@@ -1,0 +1,8 @@
+section{
+    height: 200px;
+}
+.card{
+   border-radius: 15px;
+   margin:auto;
+   padding: 15px;
+}

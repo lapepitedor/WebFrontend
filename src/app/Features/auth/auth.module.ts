@@ -4,18 +4,19 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LogoutComponent } from './components/logout/logout.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-console.log("Hello");
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, LogoutComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    MatCardModule,
   ],
 })
 export class AuthModule {}

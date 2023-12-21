@@ -12,8 +12,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class AuthentificationService {
   @Output() changed = new EventEmitter();
 
-  is_logged_in: boolean = false;
-  current_profil = null;
+ // is_logged_in: boolean = false;
+  private current_profil = null;
 
   constructor(
     private service: AngularFireAuth,
@@ -35,19 +35,23 @@ export class AuthentificationService {
       return false;
     }
   }
+  
 
   register(user: Profil) {
     this.service
       .createUserWithEmailAndPassword(user.email, user.password)
       .then((result) => {
         const additionalUserData = {
-          displayName: user.name,
+          name: user.name,
           role: user.role,
-          email: user.email, // Enregistrement de l'email
-          // Autres champs personnalisés
+          email: user.email, 
+          password: user.password,
+          country: user.country,
+          tel: user.tel,
+          gender: user.gender,
         };
         return this.db
-          .collection('profil')
+          .collection('profils')
           .doc(result.user.uid)
           .set(additionalUserData);
       })
@@ -56,8 +60,7 @@ export class AuthentificationService {
         this.router.navigate(['/login']);
       })
 
-      .catch((err) => {
-        // Gérer les erreurs ici, si nécessaire
+      .catch((err) => {      
         alert(err.message);
         this.router.navigate(['/register']);
       });
@@ -67,25 +70,22 @@ export class AuthentificationService {
     this.service
       .signOut()
       .then(() => {
-        localStorage.removeItem('token');
-        this.router.navigate(['/auth/login']);
+        
+        this.router.navigate(['/login']);
       })
       .catch((err) => {
-        // Gérer les erreurs ici, si nécessaire
+       
         alert(err.message);
-        this.router.navigate(['/register']);
+        
       });
   }
 
-  // isAdmin(): boolean {
-  //   return this.current_profil !== null && this.current_profil.role === 'admin';
+
+  // isLogginIn() {
+  //   return this.is_logged_in;
   // }
 
-  // isAgent(): boolean {
-  //   return this.current_profil !== null && this.current_profil.role === 'agent';
-  // }
-
-  isLogged_in() {
-    return (this.is_logged_in = true);
+  isLoggedIn() {
+    return this.current_profil != null;
   }
 }

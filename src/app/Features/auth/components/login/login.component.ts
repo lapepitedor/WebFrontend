@@ -29,14 +29,19 @@ export class LoginComponent implements OnInit {
     let result = await this.authservice.login(email, password);
 
     if (result) {
-      this.route.navigate(['/profil-manager']);
-      this.snackBar.open('Connexion réussie !', 'Fermer', {
-        duration: 3000, // Durée en millisecondes
-        verticalPosition: 'top', // Position verticale du snack bar
-        horizontalPosition: 'end', // Position horizontale du snack bar
+      this.route.navigate(['/dashboard']);
+      this.snackBar.open('Erfolgreich eingeloggt !', 'Close', {
+        duration: 1500, 
+        verticalPosition: 'top', 
+        horizontalPosition: 'end', 
       });
     } else {
       this.login_failed = true;
     }
+  }
+
+  onCancel() {
+    this.emailElement.nativeElement.value = '';
+    this.passwordElement.nativeElement.value = '';
   }
 }

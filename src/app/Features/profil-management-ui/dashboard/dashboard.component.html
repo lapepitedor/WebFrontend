@@ -1,38 +1,36 @@
-
-<div class="container" >
-  <div class="surface-section">
-    <div class="mb-3 fs-4">User Information</div>
-
-    <mat-list>
-      <mat-list-item>
-        <div mat-line class="fw-bold">Name:</div>
-        <div mat-line>{{ profil.name }}</div>
-      </mat-list-item>
-
-      <mat-list-item>
-        <div mat-line class="fw-bold">Email:</div>
-        <div mat-line>{{profil.email }}</div>
-      </mat-list-item>
-
-      <mat-list-item>
-        <div mat-line class="fw-bold">Password:</div>
-        <div mat-line>{{ profil.password }}</div>
-      </mat-list-item>
-
-      <mat-list-item>
-        <div mat-line class="fw-bold">Role:</div>
-        <div mat-line>{{profil.role }}</div>
-      </mat-list-item>
-
-      <mat-list-item>
-        <div mat-line class="fw-bold">Tel:</div>
-        <div mat-line>{{ profil.tel }}</div>
-      </mat-list-item>
-
-      <mat-list-item>
-        <div mat-line class="fw-bold">Country:</div>
-        <div mat-line>{{ profil.country }}</div>
-      </mat-list-item>
-    </mat-list>
-  </div>
+<div class="row">
+  <mat-card>    
+      <mat-card-content *ngIf="profil" class="text-center">
+        <h3>Welcome,{{profil.role}} {{ profil.name }}!</h3>
+      </mat-card-content>
+  </mat-card>
+  
 </div>
+<div class="row">
+<mat-card *ngIf="profil" >
+  <mat-card-title class="text-center">Profil Information</mat-card-title>
+  <mat-card-content>
+    <p><b>Name:</b> {{ profil.name }}</p>
+    <p><b>Email:</b> {{ profil.email }}</p>
+    <p><b>Password:</b> ********</p>
+    <p><b>Country:</b> {{ profil.country }}</p>
+    <p><b>Gender: </b>{{ profil.gender}}</p>
+    <p><b>Role: </b>{{ profil.role }}</p>
+  </mat-card-content>
+</mat-card>
+</div>
+
+<div class="row">
+
+  
+<mat-card>
+  <mat-card-title class="text-center">Statistics</mat-card-title>
+  <mat-card-content>
+    <p><b>Number of female profiles:</b> {{ femaleCount }}</p>
+    <p><b>Number of male profiles :</b> {{ maleCount }}</p>
+    <p>There are <b> {{ profileCount }}</b> registered profiles.</p>
+  </mat-card-content>
+</mat-card>
+
+</div>
+

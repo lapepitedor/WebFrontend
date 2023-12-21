@@ -15,7 +15,7 @@ import { UserRole } from 'src/app/Features/model/UserRole';
 export class RegisterComponent {
   title = 'Create your account';
 
-  dateToday = new Date();
+  
   // registerForm: FormGroup;
   userInfo = new Profil('0', '', '', '', UserRole.Admin, 'female', '', '');
   constructor(

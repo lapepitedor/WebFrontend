@@ -1,8 +1,9 @@
 <mat-card>
-    <mat-card-title>Mettre à jour l'Utilisateur</mat-card-title>
-    <mat-card-content>
+    <mat-card-header> <h3>Update User</h3></mat-card-header>
+
+    <mat-card-content class="custom-card-content">
         <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
                 <input matInput type="text" formControlName="name">
             </mat-form-field>
@@ -35,8 +36,6 @@
                 </mat-error>
             </mat-form-field>
 
-
-
             <mat-form-field appearance="outline">
                 <mat-label>Country:</mat-label>
                 <input matInput type="text" formControlName="country">
@@ -59,9 +58,6 @@
                 <mat-radio-button value="female">Female</mat-radio-button>
                 <mat-radio-button value="male">Male</mat-radio-button>
             </mat-radio-group>
-
-
-
 
         </form>
     </mat-card-content>

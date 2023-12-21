@@ -8,7 +8,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ListProfilComponent } from './list-profil/list-profil.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProfilEditComponent } from './profil-edit/profil-edit.component';
 import { ProfilService } from 'src/app/shared/profil.service';
 import { CreateProfilComponent } from './profil/create-profil/create-profil.component';
 import { MatInputModule } from '@angular/material/input';
@@ -26,7 +25,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { UpdateComponent } from './profil/update-profil/update.component'; 
 import { DeleteProfilComponent } from './profil/delete-profil/delete-profil.component';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 console.log('HelloProfil');
@@ -36,7 +35,7 @@ console.log('HelloProfil');
     DashboardComponent,
     NavbarComponent,
     ListProfilComponent,
-    ProfilEditComponent,
+   
     CreateProfilComponent,
     UpdateComponent,
     DeleteProfilComponent,
@@ -60,6 +59,8 @@ console.log('HelloProfil');
     MatDialogModule,
     MatListModule,
     MatCardModule,
+    MatPaginatorModule,
+    
   ],
   providers: [ProfilService],
 })

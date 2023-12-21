@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ProfilService } from 'src/app/shared/profil.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Profil } from 'src/app/Features/model/Profil';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-update',
@@ -18,6 +19,7 @@ export class UpdateComponent {
     private fb: FormBuilder,
     private service: ProfilService,
     private router: Router,
+    private snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<UpdateComponent>,
     @Inject(MAT_DIALOG_DATA) public profil: Profil
   ) {
@@ -57,7 +59,12 @@ export class UpdateComponent {
 
   onSubmit() {
     const data = this.updateForm.getRawValue();
-     this.dialogRef.close({data:data, id: this.profil.id});
+    this.dialogRef.close({ data: data, id: this.profil.id });
+    this.snackBar.open('Profil successful updated !', 'Close', {
+      duration: 2000,
+      verticalPosition: 'top',
+      horizontalPosition: 'end',
+    });
   }
 
   

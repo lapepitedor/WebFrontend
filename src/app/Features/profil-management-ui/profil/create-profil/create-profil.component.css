@@ -1,0 +1,13 @@
+form{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+mat-dialog-actions{
+    padding: 0;
+    margin: 10px;
+}
+mat-card{
+    margin:10px
+}

@@ -6,10 +6,8 @@ import {Profil  } from 'src/app/Features/model/Profil';
 import { AuthentificationService } from 'src/app/shared/authentification.service';
 import { ProfilService } from 'src/app/shared/profil.service';
 import { MatTableDataSource } from '@angular/material/table';
-
 import { UserRole } from '../../model/UserRole';
 import { MatDialog } from '@angular/material/dialog';
-import { ProfilEditComponent } from '../profil-edit/profil-edit.component';
 import { DeleteProfilComponent } from '../profil/delete-profil/delete-profil.component';
 import { UpdateComponent } from '../profil/update-profil/update.component';
 
@@ -20,6 +18,8 @@ import { UpdateComponent } from '../profil/update-profil/update.component';
 })
 export class ListProfilComponent implements OnInit {
   obj: Profil | null = null;
+  filteredList:Profil[] = [];
+  
   displayedColumns: string[] = [
     'index',
     'name',
@@ -42,11 +42,11 @@ export class ListProfilComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private service: ProfilService,
-    public authservice: AuthentificationService
+    public authService: AuthentificationService
   ) {}
 
-
   ngOnInit(): void {
+    
     this.loadData();
   }
 
@@ -67,35 +67,35 @@ export class ListProfilComponent implements OnInit {
     //       ...(e.payload.doc.data() as Profil),
     //     } as Profil;
     //   });
-    this.service.getProfiles().subscribe((data:any[])=>{
+    this.service.getProfiles().subscribe((data: any[]) => {
       this.profilList = data;
       console.log(data);
       this.dataSource = new MatTableDataSource(this.profilList);
-    })
-
+    });
   }
 
   addProfil() {
     this.router.navigate(['/newProfil']);
   }
 
-  OpenEditDialog(profil:Profil):void {
+
+  OpenEditDialog(profil: Profil): void {
     const dialogRef = this.dialog.open(UpdateComponent, {
-     data: profil,
+      data: profil,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // Logique de mise à jour de l'utilisateur
-         this.service.updateProfil(result).then(() => {
-           this.loadData();
-           // Recharger les utilisateurs après la suppression
-         });
+        this.service.updateProfil(result).then(() => {
+          this.loadData();
+          // Recharger les utilisateurs après la suppression
+        });
       }
     });
   }
 
-  openDeleteDialog(id: string) { 
+  openDeleteDialog(id: string) {
     const dialogRef = this.dialog.open(DeleteProfilComponent, {
       data: id,
     });
@@ -108,7 +108,7 @@ export class ListProfilComponent implements OnInit {
       }
     });
   }
-  
+
   // loadData() {
   //   this.service
   //     .getAll()
@@ -120,8 +120,6 @@ export class ListProfilComponent implements OnInit {
   //       console.error('Erreur lors du chargement des données :', error); // Vérifiez s'il y a des erreurs lors du chargement des données
   //     });
   // }
-
-
 
   confirmDelete(id) {
     this.service.deleteProfil(id);

@@ -1,98 +1,77 @@
-<div class="container-xl">
+<div class="container">
 
-  <div class="table-responsive">
-    <div class="table-wrapper">
-      <div class="table-title">
-        <div class="row">
-          <div class="col-sm-8">
-            <h2>List <b>Profil</b></h2>
-          </div>
-         
-        </div>
-      </div>
+  <h2 class="text-align">List of <b>Profil</b></h2>
 
-      <div class="demo-button-container">
-        <button mat-raised-button (click)="addProfil()" class="demo-button">
-          Add data
+  <button mat-raised-button (click)="addProfil()" class="demo-button">
+    Add data
+  </button>
+ 
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef> # </th>
+      <td mat-cell *matCellDef="let profil; let i = index"> {{ i + 1 }} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let profil"> {{ profil.name }} </td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let profil"> {{ profil.email }} </td>
+    </ng-container>
+
+    <!-- Password Column -->
+    <ng-container matColumnDef="password">
+      <th mat-header-cell *matHeaderCellDef> Password </th>
+      <td mat-cell *matCellDef="let profil"> {{ profil.password }} </td>
+    </ng-container>
+
+    <!-- Role Column -->
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef> Role </th>
+      <td mat-cell *matCellDef="let profil"> {{ profil.role }} </td>
+    </ng-container>
+
+    <!-- Tel Column -->
+    <ng-container matColumnDef="tel">
+      <th mat-header-cell *matHeaderCellDef>Telefon </th>
+      <td mat-cell *matCellDef="let profil"> {{ profil.tel }} </td>
+    </ng-container>
+
+    <!-- Gender Column -->
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef> Gender </th>
+      <td mat-cell *matCellDef="let profil"> {{ profil.gender }} </td>
+    </ng-container>
+
+    <!--Country Column -->
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef> Country </th>
+      <td mat-cell *matCellDef="let profil"> {{ profil.country }} </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let profil">
+        <button mat-icon-button color="primary" title="Edit" (click)="OpenEditDialog(profil)">
+          <mat-icon>edit</mat-icon>
         </button>
-        
-      </div>
+        <button mat-icon-button color="warn" title="Delete" (click)="openDeleteDialog(profil.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
 
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-      
-        <!-- Position Column -->
-        <ng-container matColumnDef="index">
-          <th mat-header-cell *matHeaderCellDef> # </th>
-          <td mat-cell *matCellDef="let profil; let i = index"> {{ i + 1 }} </td>
-        </ng-container>
-       
-
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
-          <td mat-cell *matCellDef="let profil"> {{ profil.name }} </td>
-        </ng-container>
-      
-        <!-- Email Column -->
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef> Email </th>
-          <td mat-cell *matCellDef="let profil"> {{ profil.email }} </td>
-        </ng-container>
-      
-        <!-- Password Column -->
-        <ng-container matColumnDef="password">
-          <th mat-header-cell *matHeaderCellDef> Password </th>
-          <td mat-cell *matCellDef="let profil"> {{ profil.password }} </td>
-        </ng-container>
-      
-        <!-- Role Column -->
-        <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef> Role </th>
-          <td mat-cell *matCellDef="let profil"> {{ profil.role }} </td>
-        </ng-container>
-      
-        <!-- Tel Column -->
-        <ng-container matColumnDef="tel">
-          <th mat-header-cell *matHeaderCellDef>Telefon </th>
-          <td mat-cell *matCellDef="let profil"> {{ profil.tel }} </td>
-        </ng-container>
-      
-        <!-- Gender Column -->
-        <ng-container matColumnDef="gender">
-          <th mat-header-cell *matHeaderCellDef> Gender </th>
-          <td mat-cell *matCellDef="let profil"> {{ profil.gender }} </td>
-        </ng-container>
-      
-        <!--Country Column -->
-        <ng-container matColumnDef="country">
-          <th mat-header-cell *matHeaderCellDef> Country </th>
-          <td mat-cell *matCellDef="let profil"> {{ profil.country }} </td>
-        </ng-container>
-      
-        <!-- Actions Column -->
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef> Actions </th>
-          <td mat-cell *matCellDef="let profil">
-            <button mat-icon-button color="primary" title="Edit" (click)="OpenEditDialog(profil)"
-             >
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" title="Delete" (click)="openDeleteDialog(profil.id)" >
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-      
-        <!-- Column Definitions -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-
-
-      
-
-    </div>
-  </div>
+    <!-- Column Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>
-

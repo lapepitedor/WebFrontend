@@ -1,70 +1,70 @@
 <mat-card>
-    <mat-card-title>ajout d un  l'Utilisateur</mat-card-title>
-    <mat-card-content>
-        <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="fill">
-                <mat-label>Name</mat-label>
-                <input type="text" matInput formControlName="name">
-            </mat-form-field>
+    <div class="group-card">
+        <mat-card-header>
+            <h3>ajout d un l'Utilisateur</h3>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+            <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input type="text" matInput formControlName="name">
+                </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Email:</mat-label>
-                <input matInput type="email" formControlName="email" placeholder="Your email is ...">
-                <mat-error *ngIf="email?.hasError('email')&& !email?.hasError('required')">
-                    Email is <strong>Required</strong>
-                </mat-error>
-            </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email:</mat-label>
+                    <input matInput type="email" formControlName="email" placeholder="Your email is ...">
+                    <mat-error *ngIf="email?.hasError('email')&& !email?.hasError('required')">
+                        Email is <strong>Required</strong>
+                    </mat-error>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Password:</mat-label>
-                <input matInput type="password" formControlName="password" placeholder="Your password"
-                    [type]="hide ? 'password' : 'text'" required>
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-
-
-            <mat-form-field appearance="outline">
-                <mat-label>Phone number</mat-label>
-                <input matInput formControlName="tel" >
-                <mat-icon matSuffix>phone</mat-icon>
-                <mat-hint>Include area code</mat-hint>
-                <mat-error *ngIf="tel?.hasError('required')">
-                    Please enter a phone number
-                </mat-error>
-            </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password:</mat-label>
+                    <input matInput type="password" formControlName="password" placeholder="Your password"
+                        [type]="hide ? 'password' : 'text'" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
 
 
+                <mat-form-field appearance="outline">
+                    <mat-label>Phone number</mat-label>
+                    <input matInput formControlName="tel">
+                    <mat-icon matSuffix>phone</mat-icon>
+                    <mat-hint>Include area code</mat-hint>
+                    <mat-error *ngIf="tel?.hasError('required')">
+                        Please enter a phone number
+                    </mat-error>
+                </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Country:</mat-label>
-                <input matInput type="text" formControlName="country" >
-            </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Country:</mat-label>
+                    <input matInput type="text" formControlName="country">
+                </mat-form-field>
 
+                <mat-form-field appearance="outline">
+                    <mat-label>Select a Role:</mat-label>
+                    <mat-select matNativeControl required formControlName="role">
+                        <mat-option>--</mat-option>
+                        <mat-option value="admin">Admin</mat-option>
+                        <mat-option value="agent">Agent</mat-option>
+                        <mat-option value="user">User</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-
-
-            <mat-form-field appearance="outline">
-                <mat-label>Select a Role:</mat-label>
-                <mat-select matNativeControl required formControlName="role" >
-
-                    <mat-option>--</mat-option>
-                    <mat-option value="admin">Admin</mat-option>
-                    <mat-option value="agent">Agent</mat-option>
-                    <mat-option value="user">User</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-label><b>Gender</b></mat-label>
-            <mat-radio-group formControlName="gender" aria-label="Select an option">
-                <mat-radio-button value="female">Female</mat-radio-button>
-                <mat-radio-button value="male">Male</mat-radio-button>
-            </mat-radio-group>
-
+                <mat-label><b>Gender</b></mat-label>
+                <mat-radio-group formControlName="gender" aria-label="Select an option">
+                    <mat-radio-button value="female">Female</mat-radio-button>
+                    <mat-radio-button value="male">Male</mat-radio-button>
+                </mat-radio-group>
+            </form>
+        </mat-card-content>
+        <mat-dialog-actions>
             <button mat-raised-button color="primary" type="submit" [disabled]="!addForm.valid">Save</button>
             <button mat-raised-button color="warn" (click)="onCancel()">cancel</button>
-        </form>
-    </mat-card-content>
-</mat-card>
+        </mat-dialog-actions>
+    </div>
+    </mat-card>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Profil } from 'src/app/Features/model/Profil';
 import { UserRole } from 'src/app/Features/model/UserRole';
@@ -18,7 +19,8 @@ export class CreateProfilComponent {
   constructor(
     private fb: FormBuilder,
     private service: ProfilService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.addForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
@@ -63,20 +65,23 @@ export class CreateProfilComponent {
   }
 
   onSubmit() {
-     console.log(
-       'Valeurs du formulaire avant réinitialisation:',
-       this.addForm.value
-     );
-     if (this.addForm.valid) {
-       this.service.saveProfil(this.addForm.value);
-         console.log(this.addForm.value);
-         this.addForm.reset();
-         // Handle successful creation here
-         
-         this.router.navigate(['/list-profil']);
-       
-     }
-  
+    console.log(
+      'Valeurs du formulaire avant réinitialisation:',
+      this.addForm.value
+    );
+    if (this.addForm.valid) {
+      this.service.saveProfil(this.addForm.value);
+      console.log(this.addForm.value);
+      this.addForm.reset();
+      // Handle successful creation here
+
+      this.router.navigate(['/list-profil']);
+      this.snackBar.open('Profil successful added !', 'Close', {
+        duration: 3000, 
+        verticalPosition: 'top', 
+        horizontalPosition: 'end', 
+      });
+    }
   }
   onCancel() {
     this.router.navigate(['/list-profil']);
