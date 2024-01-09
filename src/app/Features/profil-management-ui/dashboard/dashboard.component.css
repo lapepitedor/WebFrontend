@@ -1,5 +1,5 @@
 mat-card {
-  margin: 10px;
+  margin: 20px;
  
 }
 
@@ -9,4 +9,9 @@ mat-card.detail {
 
 .text-center {
   text-align: center;
+}
+
+.container{
+   background: #e7ebef;
+   overflow-x: auto; 
 }

@@ -1,36 +1,35 @@
-<div class="row">
-  <mat-card>    
+<div class="container">
+  <div class="row">
+    <mat-card>
       <mat-card-content *ngIf="profil" class="text-center">
-        <h3>Welcome,{{profil.role}} {{ profil.name }}!</h3>
+        <h3>Welcome,{{ profil.role }} {{ profil.name }}!</h3>
       </mat-card-content>
-  </mat-card>
-  
+    </mat-card>
+  </div>
+  <div class="row">
+    <mat-card *ngIf="profil">
+      <mat-card-title class="text-center">Profil Information</mat-card-title>
+      <mat-card-content>
+        <p><b>Name:</b> {{ profil.name }}</p>
+        <p><b>Email:</b> {{ profil.email }}</p>
+        <p><b>Password:</b> ********</p>
+        <p><b>Country:</b> {{ profil.country }}</p>
+        <p><b>Gender: </b>{{ profil.gender }}</p>
+        <p><b>Role: </b>{{ profil.role }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="row">
+    <mat-card>
+      <mat-card-title class="text-center">Statistics</mat-card-title>
+      <mat-card-content>
+        <p><b>Number of female profiles:</b> {{ femaleCount }}</p>
+        <p><b>Number of male profiles :</b> {{ maleCount }}</p>
+        <p>
+          There are <b> {{ profileCount }}</b> registered profiles.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
-<div class="row">
-<mat-card *ngIf="profil" >
-  <mat-card-title class="text-center">Profil Information</mat-card-title>
-  <mat-card-content>
-    <p><b>Name:</b> {{ profil.name }}</p>
-    <p><b>Email:</b> {{ profil.email }}</p>
-    <p><b>Password:</b> ********</p>
-    <p><b>Country:</b> {{ profil.country }}</p>
-    <p><b>Gender: </b>{{ profil.gender}}</p>
-    <p><b>Role: </b>{{ profil.role }}</p>
-  </mat-card-content>
-</mat-card>
-</div>
-
-<div class="row">
-
-  
-<mat-card>
-  <mat-card-title class="text-center">Statistics</mat-card-title>
-  <mat-card-content>
-    <p><b>Number of female profiles:</b> {{ femaleCount }}</p>
-    <p><b>Number of male profiles :</b> {{ maleCount }}</p>
-    <p>There are <b> {{ profileCount }}</b> registered profiles.</p>
-  </mat-card-content>
-</mat-card>
-
-</div>
-

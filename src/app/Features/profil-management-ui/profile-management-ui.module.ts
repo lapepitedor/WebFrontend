@@ -26,6 +26,8 @@ import { MatCardModule } from '@angular/material/card';
 import { UpdateComponent } from './profil/update-profil/update.component'; 
 import { DeleteProfilComponent } from './profil/delete-profil/delete-profil.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 console.log('HelloProfil');
@@ -35,7 +37,7 @@ console.log('HelloProfil');
     DashboardComponent,
     NavbarComponent,
     ListProfilComponent,
-   
+
     CreateProfilComponent,
     UpdateComponent,
     DeleteProfilComponent,
@@ -60,7 +62,8 @@ console.log('HelloProfil');
     MatListModule,
     MatCardModule,
     MatPaginatorModule,
-    
+    MatToolbarModule,
+    MatMenuModule,
   ],
   providers: [ProfilService],
 })

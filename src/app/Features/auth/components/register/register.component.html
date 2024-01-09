@@ -1,99 +1,89 @@
-<section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
-        <div class="row justify-content-center align-items-center h-100">
-            <div class="col-12 col-lg-9 col-xl-7">
-                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                    <div class="card-body p-4 p-md-5">
-                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<mat-card>
+   <div class="group-card">
+  <mat-card-header><h3>Registration Form</h3> </mat-card-header>
+  <br />
 
+  <mat-card-content>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name" />
+      </mat-form-field>
 
-                            <div class=" form-outline mb-3">
-                                <label class="form-label" for="name">FullName:</label>
-                                <input type="text" id="name" class="form-control form-control-lg" formControlName="name"
-                                    placeholder="Your Full name ist ..." autofocus required />
-                                <div *ngIf="registerForm.controls.name.invalid && registerForm.controls.name.touched">
-                                    Your FullName ist required.</div>
-                            </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Email:</mat-label>
+        <input matInput type="email" formControlName="email" />
+        <mat-error
+          *ngIf="email?.hasError('email') && !email?.hasError('required')"
+        >
+          Email is <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
 
-                            <div class="form-outline mt-3">
-                                <label class="form-label" for="emailAddress">Email:</label>
-                                <input type="email" formControlName="email" id="emailAddress"
-                                    class="form-control form-control-lg" placeholder="Your email  is ..." name="email"
-                                    required />
+      <mat-form-field appearance="outline">
+        <mat-label>Password:</mat-label>
+        <input
+          matInput
+          type="password"
+          formControlName="password"
+          [type]="hide ? 'password' : 'text'"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
 
-                            </div>
-                            <div class=" form-outline mt-3">
-                                <label for="country" class="form-label">Country:</label>
-                                <input type="text" formControlName="country" class="form-control form-control-lg"
-                                    id="country" type="text" placeholder="Your country is ..." required />
+      <mat-form-field appearance="outline">
+        <mat-label>Phone number</mat-label>
+        <input matInput type="number" formControlName="tel" />
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-hint>Include area code</mat-hint>
+        <mat-error *ngIf="tel?.hasError('required')">
+          Please enter a phone number
+        </mat-error>
+      </mat-form-field>
 
-                            </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Country:</mat-label>
+        <input matInput type="text" formControlName="country" />
+      </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Select a Role:</mat-label>
+        <mat-select matNativeControl required formControlName="role">
+          <mat-option>--</mat-option>
+          <mat-option value="admin">Admin</mat-option>
+          <mat-option value="agent">Agent</mat-option>
+          <mat-option value="user">User</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-                            <div class=" form-outline mt-3">
+      <mat-label><b>Gender</b></mat-label>
+      <mat-radio-group formControlName="gender" aria-label="Select an option">
+        <mat-radio-button value="female">Female</mat-radio-button>
+        <mat-radio-button value="male">Male</mat-radio-button>
+      </mat-radio-group>
 
-                                <h6 class="mt-3 mb-2 pb-1">Gender: </h6>
-
-                                <div class=" form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" formControlName="genderOptions"
-                                        id="femaleGender" value="female" checked required />
-                                    <label class="form-check-label" for="femaleGender">Female</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" formControlName="genderOptions"
-                                        id="maleGender" value="male" required />
-                                    <label class="form-check-label" for="maleGender">Male</label>
-                                </div>
-
-                            </div>
-
-
-
-
-
-
-
-
-                            <div class="form-outline mt-3">
-                                <label class="form-label" for="tel">Telefon:</label>
-                                <input type="tel" formControlName="tel" id="tel" class="form-control form-control-lg"
-                                    placeholder="tel" name="tel" required />
-                            </div>
-
-                            <div class="form-outline mt-3">
-                                <label class="form-label" for="password">Password:</label>
-                                <input type="password" formControlName="password" id="password"
-                                    class="form-control form-control-lg" placeholder="Your password" name="password"
-                                    required />
-                            </div>
-
-
-
-
-                            <div class="row">
-
-                                <div class="col-12 mt-3">
-                                    <label class="form-label select-label">Choose option :</label>
-
-                                    <select class="select form-control-lg" formControlName="role" required>
-                                        <option value="1" disabled>Choose option</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="agent">Agent</option>
-                                        <option value="user">User</option>
-                                    </select>
-                                </div>
-
-                            </div>
-
-                            <div class="mt-4 pt-2">
-                                <button class="btn btn-primary btn-lg" type="submit">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!registerForm.valid"
+        >
+          Save
+        </button>
+        &nbsp;
+        <button mat-raised-button color="warn" (click)="onCancel()">
+          cancel
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+  </div>
+</mat-card>

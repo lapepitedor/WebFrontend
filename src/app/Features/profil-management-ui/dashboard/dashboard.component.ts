@@ -11,7 +11,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  description = 'Dashboard';
 
   profil: Profil = null;
   profileCount: number = 0;

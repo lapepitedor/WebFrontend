@@ -65,16 +65,11 @@ export class CreateProfilComponent {
   }
 
   onSubmit() {
-    console.log(
-      'Valeurs du formulaire avant réinitialisation:',
-      this.addForm.value
-    );
+  
     if (this.addForm.valid) {
       this.service.saveProfil(this.addForm.value);
       console.log(this.addForm.value);
-      this.addForm.reset();
-      // Handle successful creation here
-
+      this.addForm.reset();  
       this.router.navigate(['/list-profil']);
       this.snackBar.open('Profil successful added !', 'Close', {
         duration: 3000, 

@@ -33,28 +33,7 @@ export class ProfilService {
   }
 
   getProfiles() {
-    // return new Promise<Profil[]>((resolve) => {
-    //   let collection = this.db.collection(this.pathCollRef);
-    //   collection.get().subscribe(function (snapshot) {
-    //     let profils: Profil[] = [];
-    //     snapshot.forEach(function (doc) {
-    //       let data = doc.data();
-    //       let obj = new Profil(
-    //         doc.id,
-    //         data['Name'],
-    //         data['Email'],
-    //         data['Password'],
-    //         data['UserRole'],
-    //         data['Gender'],
-    //         data['Tel'],
-    //         data['Country']
-    //       );
-    //       profils.push(obj);
-    //     });
-    //     resolve(profils);
-    //     console.log(profils);
-    //   });
-    // });
+    
     return this.db
       .collection(this.pathCollRef)
       .snapshotChanges()
@@ -132,29 +111,7 @@ export class ProfilService {
     });
   }
 
-  retrieve(id: string) {
-    return new Promise<Profil>((resolve) => {
-      this.db
-        .collection('profils')
-        .doc(id)
-        .get()
-        .subscribe(function (doc) {
-          let data = doc.data();
-          let obj = new Profil(
-            doc.id,
-            data['Name'],
-            data['Email'],
-            data['Password'],
-            data['Role'],
-            data['Gender'],
-            data['Tel'],
-            data['Country']
-          );
-       
-          resolve(obj);
-        });
-    });
-  }
+  
 
   getProfileCount() {
     return this.db

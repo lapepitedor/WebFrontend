@@ -51,25 +51,10 @@ export class ListProfilComponent implements OnInit {
   }
 
   loadData() {
-    // this.service.getAll().subscribe((data: any[]) => {
-    //   console.log('Données récupérées depuis le service :', data);
-    //   console.log('Données récupérées depuis le service :', data['id']);
-
-    //   this.profilListe = data.map((item) => item.data); // Assurez-vous que la structure des données correspond à votre modèle Profil
-    //   this.dataSource = new MatTableDataSource<Profil>(this.profilListe);
-    // });
-    // this.service.getProfiles().subscribe((data) => {
-    //   console.log('Données récupérées depuis le service :', data);
-    //      console.log('Données récupérées depuis le service :', data['id']);
-    //   const profils = data.map((e) => {
-    //     return {
-    //       id: e.payload.doc.id,
-    //       ...(e.payload.doc.data() as Profil),
-    //     } as Profil;
-    //   });
+   
     this.service.getProfiles().subscribe((data: any[]) => {
       this.profilList = data;
-      console.log(data);
+      
       this.dataSource = new MatTableDataSource(this.profilList);
     });
   }
@@ -86,10 +71,10 @@ export class ListProfilComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // Logique de mise à jour de l'utilisateur
+       
         this.service.updateProfil(result).then(() => {
           this.loadData();
-          // Recharger les utilisateurs après la suppression
+          
         });
       }
     });
@@ -103,25 +88,10 @@ export class ListProfilComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.service.deleteProfil(result).then(() => {
-          this.loadData(); // Recharger les utilisateurs après la suppression
+          this.loadData(); 
         });
       }
     });
   }
 
-  // loadData() {
-  //   this.service
-  //     .getAll()
-  //     .then((users) => {
-  //       console.log('Données des utilisateurs récupérées :', users);
-  //       this.users = users;
-  //     })
-  //     .catch((error) => {
-  //       console.error('Erreur lors du chargement des données :', error); // Vérifiez s'il y a des erreurs lors du chargement des données
-  //     });
-  // }
-
-  confirmDelete(id) {
-    this.service.deleteProfil(id);
-  }
 }

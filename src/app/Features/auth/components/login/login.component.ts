@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AuthentificationService } from 'src/app/shared/authentification.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -31,9 +30,9 @@ export class LoginComponent implements OnInit {
     if (result) {
       this.route.navigate(['/dashboard']);
       this.snackBar.open('Erfolgreich eingeloggt !', 'Close', {
-        duration: 1500, 
-        verticalPosition: 'top', 
-        horizontalPosition: 'end', 
+        duration: 2000,
+        verticalPosition: 'top',
+        horizontalPosition: 'end',
       });
     } else {
       this.login_failed = true;
