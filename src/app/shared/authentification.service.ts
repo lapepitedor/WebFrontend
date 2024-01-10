@@ -21,7 +21,7 @@ export class AuthentificationService {
   ) {}
 
   async login(email: string, password: string) {
-    debugger;
+   
     try {
       let result = await this.service.signInWithEmailAndPassword(
         email,
@@ -32,7 +32,9 @@ export class AuthentificationService {
       this.changed.emit();
       return true;
     } catch (error) {
-      alert('Hello, No User found with this email and passwort');
+      console.error(error);
+      alert(`Error: ${error.message}`);
+     // alert('Hello, No User found with this email and passwort');
       return false;
     }
   }

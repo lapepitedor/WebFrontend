@@ -15,30 +15,24 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 const routes: Routes = [  
 ];
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyCDfdposhMdBBKtpqXCme6IRM_X666fHuw',
-//   authDomain: 'profilmanager-2db1c.firebaseapp.com',
-//   projectId: 'profilmanager-2db1c',
-//   storageBucket: 'profilmanager-2db1c.appspot.com',
-//   messagingSenderId: '508105089163',
-//   appId: '1:508105089163:web:c74494c1d5b2f94e00348e',
-// };
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyCDfdposhMdBBKtpqXCme6IRM_X666fHuw',
-//   authDomain: 'profilmanager-2db1c.firebaseapp.com',
-//   projectId: 'profilmanager-2db1c',
-//   storageBucket: 'profilmanager-2db1c.appspot.com',
-//   messagingSenderId: '508105089163',
-//   appId: '1:508105089163:web:c838b74c8540269a00348e',
-// };
+
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyBjKEiUj2M-OOlidW8jXo7uAGc0KaPMhu0',
-  authDomain: 'webprofilmanager.firebaseapp.com',
-  projectId: 'webprofilmanager',
-  storageBucket: 'webprofilmanager.appspot.com',
-  messagingSenderId: '1088060138111',
-  appId: '1:1088060138111:web:15ea33e819e1f8629bd54a',
+  apiKey: 'AIzaSyCrpHS_46ARWxkoCladZYiLE8JPz3RJn6c',
+  authDomain: 'profilmanagerweb.firebaseapp.com',
+  projectId: 'profilmanagerweb',
+  storageBucket: 'profilmanagerweb.appspot.com',
+  messagingSenderId: '273109787170',
+  appId: '1:273109787170:web:c3c5ce33811f64a8a4a07b',
 };
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyCrpHS_46ARWxkoCladZYiLE8JPz3RJn6c',
+//   authDomain: 'profilmanagerweb.firebaseapp.com',
+//   projectId: 'profilmanagerweb',
+//   storageBucket: 'profilmanagerweb.appspot.com',
+//   messagingSenderId: '273109787170',
+//   appId: '1:273109787170:web:f662a8edbf0e4c2ea4a07b',
+// };
 
 
 @NgModule({

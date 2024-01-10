@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   async onSubmit() {
     let email = this.emailElement.nativeElement.value;
     let password = this.passwordElement.nativeElement.value;
+    console.log(`Email: ${email}, Password: ${password}`); 
 
     let result = await this.authservice.login(email, password);
 

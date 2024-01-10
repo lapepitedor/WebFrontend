@@ -11,29 +11,29 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProfilService {
   @Output() changed = new EventEmitter();
-  pathCollRef: string = 'profils'; // nom de la collection
+ // pathCollRef: string = 'profils'; // nom de la collection
+  pathCollRef: string = 'users';
 
   profils: Profil[] = [];
 
   constructor(private db: AngularFirestore, private snackBar: MatSnackBar) {}
 
-  getAll() {
-    return this.db
-      .collection('profils')
-      .snapshotChanges()
-      .pipe(
-        map((actions) => {
-          return actions.map((a) => {
-            const data = a.payload.doc.data();
-            const id = a.payload.doc.id;
-            return { id, data };
-          });
-        })
-      );
-  }
+  // getAll() {
+  //   return this.db
+  //     .collection('profils')
+  //     .snapshotChanges()
+  //     .pipe(
+  //       map((actions) => {
+  //         return actions.map((a) => {
+  //           const data = a.payload.doc.data();
+  //           const id = a.payload.doc.id;
+  //           return { id, data };
+  //         });
+  //       })
+  //     );
+  // }
 
   getProfiles() {
-    
     return this.db
       .collection(this.pathCollRef)
       .snapshotChanges()
@@ -68,13 +68,9 @@ export class ProfilService {
       .set({ ...profil });
   }
 
-  addProfil(profil: Profil) {
-    this.db.collection('profil').add(profil);
-  }
-
-  getProfils() {
-    return this.db.collection(this.pathCollRef).snapshotChanges();
-  }
+  // getProfils() {
+  //   return this.db.collection('profils').snapshotChanges();
+  // }
 
   updateProfil(profil: Profil) {
     return this.db
@@ -84,7 +80,7 @@ export class ProfilService {
   }
 
   deleteProfil(id: string) {
-    return this.db.collection('profils').doc(id).delete();
+    return this.db.collection(this.pathCollRef).doc(id).delete();
   }
 
   getById(id: string) {
@@ -111,33 +107,30 @@ export class ProfilService {
     });
   }
 
-  
-
   getProfileCount() {
     return this.db
-      .collection('profils')
+      .collection(this.pathCollRef)
       .valueChanges()
       .pipe(map((profiles) => profiles.length));
   }
 
   getFemaleProfileCount() {
     return this.db
-      .collection('profils', (ref) => ref.where('gender', '==', 'female'))
+      .collection(this.pathCollRef, (ref) =>
+        ref.where('gender', '==', 'female')
+      )
       .valueChanges()
       .pipe(map((profiles) => profiles.length));
   }
 
   getMaleProfileCount() {
     return this.db
-      .collection('profils', (ref) => ref.where('gender', '==', 'male'))
+      .collection(this.pathCollRef, (ref) => ref.where('gender', '==', 'male'))
       .valueChanges()
       .pipe(map((profiles) => profiles.length));
   }
 
   getProfilDetail(profilId: string): Observable<Profil> {
-    return this.db
-      .collection('profils')
-      .doc<Profil>(profilId)
-      .valueChanges();
+     return this.db.collection('profils').doc<Profil>(profilId).valueChanges();
   }
 }
