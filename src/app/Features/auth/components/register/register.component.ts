@@ -20,6 +20,7 @@ export class RegisterComponent {
   constructor(
     private router: Router,
     private service: ProfilService,
+    private authService: AuthentificationService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar
   ) {
@@ -72,7 +73,7 @@ export class RegisterComponent {
       return;
     } else {
       console.log(this.registerForm.value);
-      this.service.saveProfil(this.registerForm.value);
+      this.authService.register(this.registerForm.value);
       this.registerForm.reset();
       this.router.navigate(['/login']);
       this.snackBar.open('Profil successful registred !', 'Close',

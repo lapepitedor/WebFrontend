@@ -18,20 +18,7 @@ export class ProfilService {
 
   constructor(private db: AngularFirestore, private snackBar: MatSnackBar) {}
 
-  // getAll() {
-  //   return this.db
-  //     .collection('profils')
-  //     .snapshotChanges()
-  //     .pipe(
-  //       map((actions) => {
-  //         return actions.map((a) => {
-  //           const data = a.payload.doc.data();
-  //           const id = a.payload.doc.id;
-  //           return { id, data };
-  //         });
-  //       })
-  //     );
-  // }
+
 
   getProfiles() {
     return this.db
@@ -68,9 +55,7 @@ export class ProfilService {
       .set({ ...profil });
   }
 
-  // getProfils() {
-  //   return this.db.collection('profils').snapshotChanges();
-  // }
+ 
 
   updateProfil(profil: Profil) {
     return this.db
